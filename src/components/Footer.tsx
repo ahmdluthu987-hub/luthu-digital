@@ -11,6 +11,7 @@ import {
     Heart,
     ChevronRight
 } from "lucide-react";
+import Logo from "./Logo";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -24,10 +25,9 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
 
                     {/* Brand Column */}
-                    <div className="space-y-8 col-span-1 lg:col-span-1">
-                        <Link href="/" className="text-3xl font-black flex items-center gap-3">
-                            <span className="w-12 h-12 bg-white text-primary flex items-center justify-center rounded-2xl">L</span>
-                            <span>Luthu.</span>
+                    <div className="space-y-6 col-span-1 lg:col-span-1">
+                        <Link href="/">
+                            <Logo size="lg" inverse={true} />
                         </Link>
                         <p className="text-white/60 leading-relaxed font-medium">
                             Empowering Kannur and Kerala-based businesses with high-end, AI-driven marketing strategies for sustainable digital growth.
@@ -49,7 +49,7 @@ const Footer = () => {
                     <div className="space-y-8">
                         <h4 className="text-xl font-bold uppercase tracking-widest text-accent">Quick Links</h4>
                         <ul className="space-y-4">
-                            {['About', 'Services', 'Process', 'Testimonials', 'Contact'].map((item) => (
+                            {['About', 'Services', 'Testimonials', 'Contact', 'FAQ'].map((item) => (
                                 <li key={item}>
                                     <Link
                                         href={`#${item.toLowerCase()}`}

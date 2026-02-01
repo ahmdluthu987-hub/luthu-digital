@@ -43,7 +43,7 @@ const AboutSection = () => {
     ];
 
     return (
-        <section id="about" className="relative py-24 overflow-hidden bg-[#002B24]">
+        <section id="about" className="relative py-24 overflow-hidden bg-[#002B24] z-10">
             {/* Mesh/Wave Background Pattern */}
             <div className="absolute inset-0 opacity-10">
                 <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -74,25 +74,25 @@ const AboutSection = () => {
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="grid grid-cols-1 gap-6"
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6"
                         >
                             {stats.map((stat, index) => (
                                 <motion.div
                                     key={index}
                                     whileHover={{ x: 10 }}
-                                    className="group relative p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all"
+                                    className={`group relative p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all ${index === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
                                 >
                                     <div className="absolute top-6 right-8 opacity-20 group-hover:opacity-100 transition-opacity">
                                         {stat.icon}
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-5xl font-black text-white mb-2 leading-none">
+                                        <span className="text-4xl md:text-5xl font-black text-white mb-2 leading-none">
                                             {stat.number}
                                         </span>
-                                        <span className="text-accent font-bold text-lg uppercase tracking-wider mb-2">
+                                        <span className="text-accent font-bold text-base md:text-lg uppercase tracking-wider mb-2">
                                             {stat.label}
                                         </span>
-                                        <p className="text-white/60 text-sm max-w-[200px]">
+                                        <p className="text-white/60 text-xs md:text-sm max-w-[200px]">
                                             {stat.sub}
                                         </p>
                                     </div>

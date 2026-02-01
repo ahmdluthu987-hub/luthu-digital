@@ -87,34 +87,33 @@ const Testimonials = () => {
                     {testimonials.map((item, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -10 }}
-                            className="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-xl shadow-black/[0.03] border border-gray-100 flex flex-col relative group transition-all duration-300"
+                            className="bg-white p-6 md:p-8 lg:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-xl shadow-black/[0.02] border border-gray-100 flex flex-col relative group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500"
                         >
-                            <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform">
-                                <Quote className="w-6 h-6 fill-current" />
+                            <div className="absolute -top-3 -left-3 w-10 h-10 md:w-12 md:h-12 bg-accent rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform">
+                                <Quote className="w-5 h-5 md:w-6 md:h-6 fill-current" />
                             </div>
 
                             <div className="flex gap-1 mb-6">
                                 {[...Array(item.rating)].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                                    <Star key={i} className="w-3 md:w-4 h-3 md:h-4 fill-accent text-accent" />
                                 ))}
                             </div>
 
-                            <blockquote className="text-lg text-foreground/80 leading-relaxed mb-8 flex-grow italic">
+                            <blockquote className="text-base md:text-lg text-foreground/80 leading-relaxed mb-8 flex-grow italic font-medium">
                                 “{item.quote}”
                             </blockquote>
 
-                            <div className="pt-6 border-t border-gray-50 flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xl">
+                            <div className="pt-6 border-t border-gray-50 flex items-center gap-4 mt-auto">
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/5 flex items-center justify-center text-primary font-black text-lg md:text-xl border border-primary/5">
                                     {item.author.charAt(0)}
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-primary">{item.author}</h4>
-                                    <div className="flex items-center gap-1.5 text-xs text-foreground/50 font-medium">
+                                    <h4 className="font-black text-primary text-sm md:text-base">{item.author}</h4>
+                                    <div className="flex items-center gap-1.5 text-[10px] md:text-xs text-foreground/40 font-bold uppercase tracking-wider">
                                         <MapPin className="w-3 h-3 text-accent" />
                                         {item.location}
                                     </div>
