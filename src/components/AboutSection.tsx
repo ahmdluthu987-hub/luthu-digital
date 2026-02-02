@@ -11,88 +11,124 @@ import {
     Zap,
     Target,
     BarChart3,
-    Cpu
+    Cpu,
+    Sparkles
 } from "lucide-react";
 
 const AboutSection = () => {
     const stats = [
         {
             number: "02+",
-            label: "Years",
-            sub: "Hands-on Digital Marketing Experience",
+            label: "Years Expertise",
+            sub: "Hands-on High-Performance Marketing",
             icon: <Cpu className="w-5 h-5 text-accent" />
         },
         {
             number: "30+",
-            label: "Projects",
-            sub: "SEO, SMM & Paid Ads Campaigns",
+            label: "Projects Delivered",
+            sub: "SEO & Growth Focused Success",
             icon: <Target className="w-5 h-5 text-accent" />
         },
         {
             number: "20+",
-            label: "Clients",
-            sub: "From Kannur & Across Kerala",
+            label: "Active Clients",
+            sub: "Scaling Brands Across Kerala",
             icon: <Globe className="w-5 h-5 text-accent" />
         },
     ];
 
-    const floatingIcons = [
-        { icon: <MessageCircle className="w-6 h-6 text-white" />, top: "10%", right: "15%", delay: 0 },
-        { icon: <Zap className="w-8 h-8 text-accent" />, bottom: "15%", left: "10%", delay: 1 },
-        { icon: <BarChart3 className="w-6 h-6 text-white" />, top: "25%", left: "5%", delay: 0.5 },
-    ];
-
     return (
-        <section id="about" className="relative py-24 overflow-hidden bg-[#002B24] z-10">
-            {/* Mesh/Wave Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <path
-                        d="M0 50 Q 25 40 50 50 T 100 50 V 100 H 0 Z"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="0.1"
-                    />
-                    <path
-                        d="M0 60 Q 30 50 60 60 T 100 60 V 100 H 0 Z"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="0.1"
-                    />
-                    <circle cx="20" cy="20" r="0.2" fill="white" />
-                    <circle cx="80" cy="40" r="0.2" fill="white" />
-                    <circle cx="50" cy="80" r="0.2" fill="white" />
-                </svg>
+        <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-[#01201B] z-10">
+            {/* Background elements */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#01201B] via-transparent to-[#01201B]" />
             </div>
 
-            <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div className="container mx-auto px-6 lg:px-12 xl:px-20 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
 
-                    {/* Left Side - Stats */}
-                    <div className="lg:col-span-5 space-y-8">
+                    {/* Left: Content Side */}
+                    <div className="lg:col-span-7 order-2 lg:order-1">
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="space-y-10"
+                        >
+                            <div className="space-y-6">
+                                <span className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-accent font-black text-[10px] uppercase tracking-widest border border-accent/20">
+                                    <Sparkles className="w-3 h-3" /> Professional Pedigree
+                                </span>
+                                <h2 className="text-4xl md:text-6xl font-black text-white leading-[1.1] tracking-tight">
+                                    Crafting Campaigns <br />
+                                    <span className="text-accent underline decoration-white/5 underline-offset-8">That Actually Scale.</span>
+                                </h2>
+                            </div>
+
+                            <div className="space-y-8 text-lg sm:text-xl text-white/70 leading-relaxed font-medium">
+                                <p className="text-balance">
+                                    <span className="text-white font-black">Ahmad Luthu</span> is an AI-first marketing strategist based in <span className="text-accent">Kannur, Kerala</span>. He doesn't just "do" marketing; he engineers growth systems using data-led precision.
+                                </p>
+
+                                <p className="text-balance">
+                                    By fusing <span className="text-white border-b border-white/20">Advanced SEO</span> with performance-focused AI tools, Ahmad builds resilient digital ecosystems that turn local Indian businesses into dominant market players.
+                                </p>
+
+                                <div className="grid grid-cols-2 gap-x-8 gap-y-4 pt-4">
+                                    {[
+                                        "Technical SEO Audits",
+                                        "AI Content Automation",
+                                        "Performance AdOps",
+                                        "Conversion Rate Optimization"
+                                    ].map((skill) => (
+                                        <div key={skill} className="flex items-center gap-3 text-sm font-bold text-white/50">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                                            {skill}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="pt-8">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                    className="px-10 py-5 bg-white text-primary rounded-2xl font-black text-lg flex items-center justify-center gap-4 transition-all hover:bg-accent hover:text-white group"
+                                >
+                                    Detailed Portfolio
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </motion.button>
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* Right: Stats Grid */}
+                    <div className="lg:col-span-5 order-1 lg:order-2">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6"
                         >
                             {stats.map((stat, index) => (
                                 <motion.div
                                     key={index}
-                                    whileHover={{ x: 10 }}
-                                    className={`group relative p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all ${index === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+                                    whileHover={{ x: 10, backgroundColor: "rgba(255,255,255,0.08)" }}
+                                    className="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm transition-all relative overflow-hidden group"
                                 >
-                                    <div className="absolute top-6 right-8 opacity-20 group-hover:opacity-100 transition-opacity">
-                                        {stat.icon}
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-4xl md:text-5xl font-black text-white mb-2 leading-none">
-                                            {stat.number}
-                                        </span>
-                                        <span className="text-accent font-bold text-base md:text-lg uppercase tracking-wider mb-2">
-                                            {stat.label}
-                                        </span>
-                                        <p className="text-white/60 text-xs md:text-sm max-w-[200px]">
+                                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-accent/5 rounded-full blur-2xl group-hover:bg-accent/10 transition-all" />
+                                    <div className="flex flex-col gap-4">
+                                        <div className="p-3 bg-white/5 rounded-xl w-fit text-accent">
+                                            {stat.icon}
+                                        </div>
+                                        <div className="space-y-1">
+                                            <h3 className="text-4xl font-black text-white">{stat.number}</h3>
+                                            <p className="text-accent font-black text-xs uppercase tracking-widest leading-none">{stat.label}</p>
+                                        </div>
+                                        <p className="text-white/40 text-[13px] font-medium leading-relaxed max-w-[200px]">
                                             {stat.sub}
                                         </p>
                                     </div>
@@ -101,88 +137,15 @@ const AboutSection = () => {
                         </motion.div>
                     </div>
 
-                    {/* Right Side - Content */}
-                    <div className="lg:col-span-7 space-y-8">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8 leading-tight">
-                                Crafting Campaigns That Convert: <br />
-                                <span className="text-accent">Meet Your AI-First Digital Marketing Expert</span>
-                            </h2>
-
-                            <div className="space-y-6 text-lg text-white/80 leading-relaxed">
-                                <p>
-                                    <span className="text-white font-semibold">Ahmad Luthu</span> is an <span className="text-accent">AI-first digital marketing expert in Kannur</span>, Kerala, focused on helping local businesses grow through smart, data-driven strategies. With hands-on experience in <span className="text-white">SEO, Social Media Marketing (SMM), Google Ads (SEM)</span>, and AI-powered tools, he builds campaigns designed to generate real leads and measurable growth.
-                                </p>
-
-                                <p>
-                                    By combining modern AI tools with human creativity, Ahmad creates personalized marketing strategies that go beyond traditional methods. Each campaign is optimized continuously using analytics, automation, and performance insights to ensure maximum ROI.
-                                </p>
-
-                                <p className="border-l-4 border-accent pl-6 italic text-white/70">
-                                    Working with Ahmad means partnering with a <span className="text-white">digital marketing expert in Kannur</span> who understands Kerala’s local market while applying global digital marketing standards.
-                                </p>
-                            </div>
-
-                            <div className="pt-10">
-                                <motion.button
-                                    whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255, 107, 53, 0.4)" }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="px-10 py-4 bg-accent text-white rounded-full font-bold text-lg inline-flex items-center gap-3 transition-all group"
-                                >
-                                    More About Me
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </motion.button>
-                            </div>
-
-                            {/* Floating Keywords (Subtle) */}
-                            <div className="mt-12 flex flex-wrap gap-4 text-xs font-medium uppercase tracking-widest text-white/30">
-                                <span>#SEOExpertKannur</span>
-                                <span>#AIFirstMarketing</span>
-                                <span>#SMM_SEM_Kerala</span>
-                                <span>#KannurConsultant</span>
-                            </div>
-                        </motion.div>
-                    </div>
                 </div>
             </div>
 
-            {/* Floating Icons */}
-            {floatingIcons.map((item, i) => (
-                <motion.div
-                    key={i}
-                    animate={{
-                        y: [0, -15, 0],
-                        opacity: [0.2, 0.5, 0.2]
-                    }}
-                    transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        delay: item.delay
-                    }}
-                    style={{
-                        position: "absolute",
-                        top: item.top,
-                        right: item.right,
-                        bottom: item.bottom,
-                        left: item.left,
-                    }}
-                    className="hidden lg:block p-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl pointer-events-none"
-                >
-                    {item.icon}
-                </motion.div>
-            ))}
-
-            {/* Background Glows */}
-            <div className="absolute -top-24 -left-24 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
+            {/* Floating Background Glows */}
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[150px] pointer-events-none" />
         </section>
     );
 };
 
 export default AboutSection;
+

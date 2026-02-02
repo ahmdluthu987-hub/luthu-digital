@@ -2,17 +2,18 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowUpRight, Github, Linkedin, MessageCircle } from "lucide-react";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import Logo from "./Logo";
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const { scrollYProgress } = useScroll();
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            setScrolled(window.scrollY > 20);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
@@ -21,94 +22,121 @@ const Navbar = () => {
     const navLinks = [
         { name: "About", href: "#about" },
         { name: "Services", href: "#services" },
+        { name: "Work", href: "#testimonials" },
         { name: "FAQ", href: "#faq" },
-        { name: "Contact", href: "#contact" },
     ];
 
     return (
-        <nav
-            className="sticky top-0 left-0 right-0 z-50 bg-[#FAF9F6] py-4 border-b border-primary/5 shadow-sm"
+        <header
+            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled
+                ? "py-3 bg-white/70 backdrop-blur-xl border-b border-primary/5 shadow-sm"
+                : "py-6 bg-transparent"
+                }`}
         >
-            <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
-                <Link href="/">
+            {/* Scroll Progress Bar */}
+            <motion.div
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent origin-left z-[102]"
+                style={{ scaleX: scrollYProgress }}
+            />
+
+            <div className="container mx-auto px-6 lg:px-12 xl:px-20 flex items-center justify-between">
+                <Link href="/" className="relative z-[101]">
                     <Logo size="md" />
                 </Link>
 
                 {/* Desktop Nav */}
-                <div className="hidden md:flex items-center gap-8">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            className="text-primary/70 hover:text-primary font-bold text-sm uppercase tracking-widest transition-all hover:scale-105"
-                        >
-                            {link.name}
-                        </Link>
-                    ))}
+                <nav className="hidden md:flex items-center gap-10">
+                    <div className="flex items-center gap-8 px-6 py-2.5 bg-white/40 backdrop-blur-md rounded-full border border-primary/5 shadow-inner">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                className="text-primary/60 hover:text-primary font-bold text-[11px] uppercase tracking-[0.2em] transition-all hover:-translate-y-0.5"
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                    </div>
+
                     <Link
                         href="#contact"
-                        className="px-6 py-2.5 bg-primary text-white rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-accent hover:shadow-xl hover:shadow-accent/20 transition-all flex items-center gap-2"
+                        className="group flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-primary-light hover:shadow-xl hover:shadow-primary/20 transition-all"
                     >
-                        Free Audit
-                        <ArrowUpRight className="w-4 h-4" />
+                        <span>Start Growth</span>
+                        <div className="w-5 h-5 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                            <ArrowUpRight className="w-3 h-3" />
+                        </div>
                     </Link>
-                </div>
+                </nav>
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="md:hidden w-10 h-10 flex items-center justify-center bg-primary/5 rounded-xl text-primary"
+                    className="md:hidden relative z-[101] w-12 h-12 flex items-center justify-center bg-white/80 backdrop-blur-md rounded-2xl text-primary border border-primary/5 shadow-sm active:scale-95 transition-transform"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
             </div>
 
-            {/* Mobile Nav */}
+            {/* Mobile Nav Overlay */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="md:hidden absolute top-full left-0 right-0 bg-cream/95 backdrop-blur-2xl border-b border-primary/10 p-8 flex flex-col gap-6 shadow-2xl"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] md:hidden bg-white/95 backdrop-blur-3xl"
                     >
-                        {navLinks.map((link, i) => (
-                            <motion.div
-                                key={link.name}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                            >
-                                <Link
-                                    href={link.href}
-                                    className="text-2xl font-black text-primary/80 hover:text-accent flex items-center justify-between group"
-                                    onClick={() => setIsOpen(false)}
+                        <div className="flex flex-col h-full pt-32 pb-12 px-8">
+                            <div className="space-y-6">
+                                {navLinks.map((link, i) => (
+                                    <motion.div
+                                        key={link.name}
+                                        initial={{ opacity: 0, x: -30 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: i * 0.1, duration: 0.5 }}
+                                    >
+                                        <Link
+                                            href={link.href}
+                                            className="text-5xl font-black text-primary/30 hover:text-primary transition-colors flex items-center justify-between group"
+                                            onClick={() => setIsOpen(false)}
+                                        >
+                                            {link.name}
+                                            <ArrowUpRight className="w-10 h-10 opacity-0 group-hover:opacity-100 transition-all -translate-x-10 group-hover:translate-x-0" />
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            <div className="mt-auto space-y-8">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
                                 >
-                                    {link.name}
-                                    <ArrowUpRight className="w-6 h-6 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0" />
-                                </Link>
-                            </motion.div>
-                        ))}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                        >
-                            <Link
-                                href="#contact"
-                                className="px-8 py-5 bg-primary text-white rounded-2xl font-black text-xl flex items-center justify-center gap-2 shadow-xl shadow-primary/20"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                Free Consultation
-                                <ArrowUpRight className="w-6 h-6" />
-                            </Link>
-                        </motion.div>
+                                    <Link
+                                        href="#contact"
+                                        className="w-full py-6 bg-primary text-white rounded-[2.5rem] font-black text-xl flex items-center justify-center gap-3 shadow-2xl shadow-primary/20"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        Free Consultation
+                                        <MessageCircle className="w-6 h-6" />
+                                    </Link>
+                                </motion.div>
+
+                                <div className="flex items-center gap-6 justify-center opacity-40">
+                                    <Linkedin className="w-6 h-6" />
+                                    <Github className="w-6 h-6" />
+                                    <MessageCircle className="w-6 h-6" />
+                                </div>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </header>
     );
 };
 
 export default Navbar;
+
