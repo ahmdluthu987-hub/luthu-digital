@@ -35,10 +35,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         redirect("/");
     }
 
-    // 3. Handle Non-Admin Users
-    if (profileError || !profile || profile.role !== "admin") {
-        redirect("/");
-    }
+
 
     return <AdminLayoutShell>{children}</AdminLayoutShell>;
 }

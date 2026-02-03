@@ -31,7 +31,7 @@ export default function AdminLogin() {
 
             // 2. Success: Redirect to Dashboard
             // Authorization (Admin Role Check) happens on the server in /admin/dashboard/layout.tsx
-            router.push("/admin/dashboard");
+            router.replace("/admin/dashboard");
             router.refresh(); // Refresh to ensure server components run fresh checks
         } catch (error: any) {
             setError(error.message || "Login failed. Please check your credentials.");

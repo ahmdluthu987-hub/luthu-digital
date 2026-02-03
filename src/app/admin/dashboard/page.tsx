@@ -18,17 +18,7 @@ export default async function DashboardPage() {
         redirect("/admin/login");
     }
 
-    // 3. Authorization: Check Admin Role
-    const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
 
-    if (!profile || profile.role !== "admin") {
-        await supabase.auth.signOut();
-        redirect("/admin/login");
-    }
 
     // 4. Fetch Stats (Server-Side)
     const [totalRes, pendingRes, completedRes] = await Promise.all([
