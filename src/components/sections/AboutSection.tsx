@@ -5,12 +5,7 @@ import { motion } from "framer-motion";
 import {
     ArrowRight,
     Globe,
-    Linkedin,
-    Mail,
-    MessageCircle,
-    Zap,
     Target,
-    BarChart3,
     Cpu,
     Sparkles
 } from "lucide-react";
@@ -38,7 +33,7 @@ const AboutSection = () => {
     ];
 
     return (
-        <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-[#01201B] z-10">
+        <section id="about" className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-[#01201B] z-10">
             {/* Background elements */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
@@ -49,7 +44,7 @@ const AboutSection = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
 
                     {/* Left: Content Side */}
-                    <div className="lg:col-span-7 order-2 lg:order-1">
+                    <div className="lg:col-span-7 order-1 lg:order-1">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -63,13 +58,16 @@ const AboutSection = () => {
                                 </span>
                                 <h2 className="text-4xl md:text-6xl font-black text-white leading-[1.1] tracking-tight">
                                     Crafting Campaigns <br />
-                                    <span className="text-accent underline decoration-white/5 underline-offset-8">That Actually Scale.</span>
+                                    <span className="text-accent relative inline-block">
+                                        That Actually Scale.
+                                        <div className="absolute -bottom-2 left-0 w-full h-1 bg-accent/20 rounded-full" />
+                                    </span>
                                 </h2>
                             </div>
 
                             <div className="space-y-8 text-lg sm:text-xl text-white/70 leading-relaxed font-medium">
                                 <p className="text-balance">
-                                    <span className="text-white font-black">Ahmad Luthu</span> is an AI-first marketing strategist based in <span className="text-accent">Kannur, Kerala</span>. He doesn't just "do" marketing; he engineers growth systems using data-led precision.
+                                    <span className="text-white font-black">Ahmad Luthu</span> is an AI-first marketing strategist based in <span className="text-accent">Kannur, Kerala</span>. He doesn&apos;t just &quot;do&quot; marketing; he engineers growth systems using data-led precision.
                                 </p>
 
                                 <p className="text-balance">
@@ -106,7 +104,7 @@ const AboutSection = () => {
                     </div>
 
                     {/* Right: Stats Grid */}
-                    <div className="lg:col-span-5 order-1 lg:order-2">
+                    <div className="lg:col-span-5 order-2 lg:order-2">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -117,7 +115,7 @@ const AboutSection = () => {
                                 <motion.div
                                     key={index}
                                     whileHover={{ x: 10, backgroundColor: "rgba(255,255,255,0.08)" }}
-                                    className="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm transition-all relative overflow-hidden group"
+                                    className="p-6 md:p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm transition-all relative overflow-hidden group"
                                 >
                                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-accent/5 rounded-full blur-2xl group-hover:bg-accent/10 transition-all" />
                                     <div className="flex flex-col gap-4">

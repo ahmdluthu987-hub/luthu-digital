@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Sparkles, MessageCircle, HelpCircle } from "lucide-react";
+import { ChevronDown, Sparkles, MessageCircle } from "lucide-react";
 
 /**
  * FAQSection - A modern, SEO-friendly FAQ component with JSON-LD schema support.
  */
 const FAQSection = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(0); // Default open first one
 
     const faqs = [
         {
@@ -56,7 +56,7 @@ const FAQSection = () => {
     };
 
     return (
-        <section id="faq" className="py-24 bg-[#FCFBF7] relative overflow-hidden">
+        <section id="faq" className="py-20 lg:py-32 bg-[#fffcf5] relative overflow-hidden">
             {/* Inject JSON-LD Schema for SEO */}
             <script
                 type="application/ld+json"
@@ -64,22 +64,22 @@ const FAQSection = () => {
             />
 
             {/* Abstract Background Accents */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -mr-20 -mt-20 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-40 -mt-20 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -ml-40 -mb-20 pointer-events-none" />
 
             <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                <div className="flex flex-col lg:flex-row gap-16">
+                <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
 
                     {/* Left Side: Header Content */}
                     <div className="lg:w-1/3">
-                        <div className="sticky top-32 space-y-6">
+                        <div className="lg:sticky lg:top-32 space-y-8">
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-black uppercase tracking-widest"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-primary/10 text-primary text-xs font-black uppercase tracking-widest shadow-sm"
                             >
-                                <Sparkles className="w-3 h-3 fill-primary" />
+                                <Sparkles className="w-3.5 h-3.5 fill-accent text-accent" />
                                 Knowledge Base
                             </motion.div>
 
@@ -87,9 +87,11 @@ const FAQSection = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="text-4xl lg:text-6xl font-black text-primary leading-tight"
+                                className="text-4xl sm:text-5xl lg:text-6xl font-black text-primary leading-[1.1] tracking-tight"
                             >
-                                Got <br />Questions? <br /><span className="text-accent">Got Answers.</span>
+                                Got <br className="hidden lg:block" />
+                                Questions? <br className="hidden lg:block" />
+                                <span className="text-accent underline decoration-accent/30 underline-offset-8">Got Answers.</span>
                             </motion.h2>
 
                             <motion.p
@@ -97,9 +99,9 @@ const FAQSection = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
-                                className="text-lg text-foreground/60 leading-relaxed max-w-sm"
+                                className="text-lg text-foreground/70 leading-relaxed max-w-sm"
                             >
-                                Everything you need to know about <span className="text-primary font-bold">AI digital marketing in Kerala</span> and how I help local businesses thrive.
+                                Everything you need to know about <span className="text-primary font-bold">AI digital marketing</span> and how I help local businesses thrive.
                             </motion.p>
 
                             <motion.div
@@ -107,16 +109,16 @@ const FAQSection = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="pt-8"
+                                className="pt-4 lg:pt-8"
                             >
                                 <button
                                     onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                                     className="group flex items-center gap-4 text-primary font-black uppercase tracking-widest text-xs hover:text-accent transition-colors"
                                 >
-                                    <div className="w-12 h-12 rounded-full border border-primary/10 flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:text-white transition-all">
-                                        <MessageCircle className="w-5 h-5" />
+                                    <div className="w-14 h-14 rounded-full border border-primary/10 bg-white flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:text-white transition-all shadow-sm">
+                                        <MessageCircle className="w-6 h-6" />
                                     </div>
-                                    Ask me directly
+                                    <span className="group-hover:translate-x-1 transition-transform">Ask me directly</span>
                                 </button>
                             </motion.div>
                         </div>
@@ -131,18 +133,20 @@ const FAQSection = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.05 }}
-                                className={`group border-b border-primary/5 transition-all duration-500 overflow-hidden ${activeIndex === index ? "bg-white rounded-[2rem] px-8 mb-6 shadow-xl shadow-primary/[0.03]" : "hover:px-4"
+                                className={`group rounded-3xl transition-all duration-300 ${activeIndex === index
+                                    ? "bg-white shadow-xl shadow-primary/5 p-6 sm:p-8 scale-[1.02] border border-primary/5"
+                                    : "bg-white/60 hover:bg-white hover:shadow-lg hover:shadow-primary/5 p-6 border border-transparent hover:border-black/5"
                                     }`}
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full py-8 flex items-center justify-between text-left focus:outline-none"
+                                    className="w-full flex items-start sm:items-center justify-between text-left focus:outline-none gap-4"
                                 >
-                                    <span className={`text-xl lg:text-2xl font-bold transition-all duration-300 pr-8 ${activeIndex === index ? "text-primary" : "text-primary/70 group-hover:text-primary"
+                                    <span className={`text-lg sm:text-xl font-bold transition-colors duration-300 ${activeIndex === index ? "text-primary" : "text-primary/80 group-hover:text-primary"
                                         }`}>
                                         {faq.question}
                                     </span>
-                                    <div className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${activeIndex === index ? "bg-primary text-white rotate-180" : "bg-primary/5 text-primary"
+                                    <div className={`shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-500 ${activeIndex === index ? "bg-accent text-white rotate-180" : "bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white"
                                         }`}>
                                         <ChevronDown className="w-5 h-5" />
                                     </div>
@@ -154,17 +158,13 @@ const FAQSection = () => {
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: "auto", opacity: 1 }}
                                             exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
-                                            <div className="pb-8">
-                                                <p className="text-lg text-foreground/60 leading-relaxed border-l-2 border-accent/30 pl-6 italic">
+                                            <div className="pt-6 pb-2">
+                                                <div className="w-full h-[1px] bg-primary/5 mb-6" />
+                                                <p className="text-base sm:text-lg text-foreground/70 leading-relaxed">
                                                     {faq.answer}
                                                 </p>
-
-                                                <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 opacity-10 text-[9px] font-black uppercase tracking-[0.3em]">
-                                                    <span>SEO_Expert_Kannur</span>
-                                                    <span>Digital_Marketing_Kerala</span>
-                                                </div>
                                             </div>
                                         </motion.div>
                                     )}
@@ -177,11 +177,15 @@ const FAQSection = () => {
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
-                            className="pt-12 flex flex-wrap justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] opacity-10 flex-col sm:flex-row"
+                            className="pt-12 flex flex-wrap justify-center lg:justify-start items-center gap-x-8 gap-y-4 text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] opacity-10"
                         >
-                            <span>Digital marketing FAQ Kannur</span>
-                            <span>AI digital marketing Kerala</span>
-                            <span>Kannur digital marketing consultant</span>
+                            <span>FAQ</span>
+                            <div className="w-1 h-1 rounded-full bg-current" />
+                            <span>Digital Marketing</span>
+                            <div className="w-1 h-1 rounded-full bg-current" />
+                            <span>AI Strategy</span>
+                            <div className="w-1 h-1 rounded-full bg-current" />
+                            <span>Kannur</span>
                         </motion.div>
                     </div>
                 </div>

@@ -1,0 +1,95 @@
+﻿
+C:\Users\user\Desktop\ahmdluthu-kannur\check-leads.js
+  1:1   error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\app\api\chat\route.ts
+  126:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\app\api\contact\route.ts
+  12:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\app\api\leads\route.ts
+  38:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\AboutSection.tsx
+   8:5  warning  'Linkedin' is defined but never used       @typescript-eslint/no-unused-vars
+   9:5  warning  'Mail' is defined but never used           @typescript-eslint/no-unused-vars
+  10:5  warning  'MessageCircle' is defined but never used  @typescript-eslint/no-unused-vars
+  11:5  warning  'Zap' is defined but never used            @typescript-eslint/no-unused-vars
+  13:5  warning  'BarChart3' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Contact.tsx
+  11:5   warning  'MessageSquare' is defined but never used  @typescript-eslint/no-unused-vars
+  69:25  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\FAQSection.tsx
+  5:48  warning  'HelpCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Hero.tsx
+   6:10  warning  'ArrowRight' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   6:41  warning  'Cpu' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   6:46  warning  'Sparkles' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  51:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Hero.tsx:51:18
+  49 |                 className="flex shrink-0 items-center"
+  50 |             >
+> 51 |                 <List />
+     |                  ^^^^ This component is created during render
+  52 |                 <List />
+  53 |             </motion.div>
+  54 |         </div>
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Hero.tsx:27:18
+  25 |     );
+  26 |
+> 27 |     const List = () => (
+     |                  ^^^^^^^
+> 28 |         <div className="flex items-center gap-6 md:gap-12 whitespace-nowrap px-4">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 29 |             {keywords.map((word, index) => (
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 37 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |     );
+     | ^^^^^^ The component is created during render here
+  39 |
+  40 |     return (
+  41 |         <div className="w-full bg-white/50 backdrop-blur-sm py-4 md:py-6 overflow-hidden flex select-none border-t border-primary/5">  react-hooks/static-components
+  52:18  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Hero.tsx:52:18
+  50 |             >
+  51 |                 <List />
+> 52 |                 <List />
+     |                  ^^^^ This component is created during render
+  53 |             </motion.div>
+  54 |         </div>
+  55 |     );
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Hero.tsx:27:18
+  25 |     );
+  26 |
+> 27 |     const List = () => (
+     |                  ^^^^^^^
+> 28 |         <div className="flex items-center gap-6 md:gap-12 whitespace-nowrap px-4">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 29 |             {keywords.map((word, index) => (
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 37 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |     );
+     | ^^^^^^ The component is created during render here
+  39 |
+  40 |     return (
+  41 |         <div className="w-full bg-white/50 backdrop-blur-sm py-4 md:py-6 overflow-hidden flex select-none border-t border-primary/5">                                                  react-hooks/static-components
+
+Γ£û 18 problems (7 errors, 11 warnings)
+

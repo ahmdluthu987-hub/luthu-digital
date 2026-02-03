@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Preloader from "@/components/layout/Preloader";
+
+import ClientEffects from "@/components/layout/ClientEffects";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ahmdluthu.com"),
   title: "Ahmad Luthu | AI-First Digital Marketing Expert in Kannur, Kerala",
   description: "Ahmad Luthu is an AI-first digital marketing specialist based in Kannur, Kerala. Helping local businesses grow through data-driven SEO, SMM, Google Ads, and AI automation.",
   keywords: [
@@ -34,6 +38,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${inter.className} antialiased selection:bg-accent/30 selection:text-accent`}>
+        <div id="top-progress-bar" />
+        <Preloader />
+        <ClientEffects />
         {children}
       </body>
     </html>

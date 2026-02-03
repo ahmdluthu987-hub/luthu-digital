@@ -1,14 +1,18 @@
-import Hero from "@/components/Hero";
-import AboutSection from "@/components/AboutSection";
-import Navbar from "@/components/Navbar";
-import Services from "@/components/Services";
-import WhyChooseMe from "@/components/WhyChooseMe";
-import Certifications from "@/components/Certifications";
-import Testimonials from "@/components/Testimonials";
-import FAQSection from "@/components/FAQSection";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import Chatbot from "@/components/Chatbot";
+import dynamic from "next/dynamic";
+import Hero from "@/components/sections/Hero";
+import AboutSection from "@/components/sections/AboutSection";
+import Navbar from "@/components/layout/Navbar";
+
+// Lazy load below-the-fold components to improve initial load time
+const Services = dynamic(() => import("@/components/sections/Services"));
+const WhyChooseMe = dynamic(() => import("@/components/sections/WhyChooseMe"));
+const Certifications = dynamic(() => import("@/components/sections/Certifications"));
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials"));
+const FAQSection = dynamic(() => import("@/components/sections/FAQSection"));
+const Contact = dynamic(() => import("@/components/sections/Contact"));
+const Footer = dynamic(() => import("@/components/layout/Footer"));
+const ChatbotWrapper = dynamic(() => import("@/components/chat/ChatbotWrapper").then(mod => ({ default: mod.ChatbotWrapper })));
+
 
 export default function Home() {
   return (
@@ -23,7 +27,7 @@ export default function Home() {
       <FAQSection />
       <Contact />
       <Footer />
-      <Chatbot />
+      <ChatbotWrapper />
     </main>
   );
 }

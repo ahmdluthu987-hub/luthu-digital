@@ -85,8 +85,9 @@ const Certifications = () => {
                                     alt={`${badge.name} Certified`}
                                     width={160}
                                     height={160}
+                                    sizes="(max-width: 768px) 140px, 160px"
+                                    quality={80}
                                     className="w-full h-full object-contain filter drop-shadow-sm group-hover:drop-shadow-md transition-all duration-500"
-                                    priority
                                 />
                             </div>
 

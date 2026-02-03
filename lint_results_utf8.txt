@@ -1,0 +1,58 @@
+﻿
+> ahmdluthu-kannur@0.1.0 lint
+> eslint
+
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\BlogListingContent.tsx
+  8:37  warning  'Sparkles' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\BlogPostContent.tsx
+  237:84  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  284:85  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Contact.tsx
+  71:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\FAQSection.tsx
+  5:48  warning  'HelpCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\MouseEffect.tsx
+   2:38  warning  'useRef' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+   3:45  warning  'useTransform' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  53:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\MouseEffect.tsx:53:9
+  51 |         }
+  52 |
+> 53 |         setIsActive(true);
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |         // 4. Global Cursor Hiding (Only when active)
+  56 |         const styleId = 'premium-cursor-hide';  react-hooks/set-state-in-effect
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Preloader.tsx
+  14:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\user\Desktop\ahmdluthu-kannur\src\components\Preloader.tsx:14:13
+  12 |         const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+  13 |         if (isBot) {
+> 14 |             setIsLoading(false);
+     |             ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |             return;
+  16 |         }
+  17 |  react-hooks/set-state-in-effect
+
+Γ£û 9 problems (5 errors, 4 warnings)
+

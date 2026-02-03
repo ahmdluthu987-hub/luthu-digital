@@ -22,12 +22,18 @@
   scroll-behavior: smooth;
 }
 
+html,
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 @layer utilities {
@@ -65,6 +71,34 @@ body {
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+#top-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent);
+  z-index: 10000;
+  width: 0;
+  transition: width 0.3s ease-out;
+}
+
+@keyframes progress-loading {
+  0% {
+    width: 0;
+    opacity: 1;
+  }
+
+  90% {
+    width: 90%;
+    opacity: 1;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
 }
 
 .bg-grid-slate-900\/\[0\.02\] {
