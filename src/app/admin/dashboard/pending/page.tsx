@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Check, Mail, User, MessageSquare, Calendar } from "lucide-react";
+import LoadingSkeleton from "@/components/admin/LoadingSkeleton";
 
 interface Contact {
     id: string;
@@ -15,7 +16,6 @@ interface Contact {
 /**
  * Pending Messages Page
  * Displays messages with status 'new' and allows marking them as 'done'
- * Simple and mobile-friendly table layout for beginners
  */
 export default function PendingMessagesPage() {
     const [messages, setMessages] = useState<Contact[]>([]);
@@ -28,7 +28,6 @@ export default function PendingMessagesPage() {
     const fetchPendingMessages = async () => {
         try {
             setLoading(true);
-            // 1. Fetch messages where status is 'new' from Supabase 'contacts' table
             const { data, error } = await supabase
                 .from("contacts")
                 .select("*")
@@ -46,7 +45,6 @@ export default function PendingMessagesPage() {
 
     const handleMarkAsDone = async (id: string) => {
         try {
-            // 2. Update status to 'done' in Supabase contacts table
             const { error } = await supabase
                 .from("contacts")
                 .update({ status: "done" })
@@ -54,9 +52,7 @@ export default function PendingMessagesPage() {
 
             if (error) throw error;
 
-            // 3. Remove from local screen instantly
             setMessages((prev) => prev.filter((msg) => msg.id !== id));
-            alert("Status updated to DONE successfully!");
         } catch (error) {
             alert("Failed to update status");
         }
@@ -65,90 +61,99 @@ export default function PendingMessagesPage() {
     return (
         <div className="space-y-6">
             {/* Header section with count badge */}
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold text-[var(--primary)] text-balance">Pending Inquiries</h1>
-                <div className="bg-orange-100 text-orange-700 px-4 py-1 rounded-full text-sm font-bold flex items-center gap-2">
-                    <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-                    {messages.length} Pending
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-800">Pending Inquiries</h1>
+                    <p className="text-gray-500 text-sm mt-1">Manage new messages from potential clients</p>
                 </div>
+                {!loading && (
+                    <div className="bg-orange-50 text-orange-700 px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 self-start sm:self-auto shadow-sm border border-orange-100">
+                        <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
+                        {messages.length} Pending
+                    </div>
+                )}
             </div>
 
             {loading ? (
-                // Loading skeleton
-                <div className="space-y-4">
-                    {[1, 2, 3].map((i) => (
-                        <div key={i} className="h-32 bg-gray-200 rounded-2xl animate-pulse"></div>
+                // Loading State
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden p-6 space-y-4">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="flex gap-4 items-center">
+                            <LoadingSkeleton className="w-12 h-12 rounded-full" />
+                            <div className="flex-1 space-y-2">
+                                <LoadingSkeleton className="h-4 w-1/3" />
+                                <LoadingSkeleton className="h-3 w-1/2" />
+                            </div>
+                        </div>
                     ))}
                 </div>
             ) : messages.length === 0 ? (
-                // Empty state when no pending messages
-                <div className="text-center py-20 bg-white rounded-2xl shadow-sm border border-dashed border-gray-300">
-                    <Check className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-medium text-gray-900">All caught up!</h3>
-                    <p className="text-gray-500 mt-2">There are no new messages at this time.</p>
+                // Empty State
+                <div className="text-center py-20 bg-white rounded-2xl shadow-sm border border-dashed border-gray-200">
+                    <div className="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Check className="w-8 h-8 text-green-500" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">All caught up!</h3>
+                    <p className="text-gray-500 mt-2">There are no new pending messages.</p>
                 </div>
             ) : (
-                // Mobile-friendly table-like list
+                // Messages List (Modern Table/Cards)
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    {/* Desktop Table Header */}
-                    <div className="hidden md:grid grid-cols-[1fr_1fr_2fr_1fr_auto] gap-4 p-5 bg-slate-50 border-b border-gray-100 font-bold text-[var(--primary)] text-xs uppercase tracking-widest">
+                    {/* Desktop Headers */}
+                    <div className="hidden md:grid grid-cols-[2fr_2fr_3fr_1fr_auto] gap-6 p-6 bg-gray-50/50 border-b border-gray-100 text-xs font-semibold text-gray-400 uppercase tracking-wider">
                         <div>Customer</div>
                         <div>Contact</div>
                         <div>Message</div>
-                        <div>Date Received</div>
+                        <div>Date</div>
                         <div className="text-right">Action</div>
                     </div>
 
-                    {/* List of messages */}
                     <div className="divide-y divide-gray-100">
                         {messages.map((msg) => (
                             <div
                                 key={msg.id}
-                                className="grid grid-cols-1 md:grid-cols-[1fr_1fr_2fr_1fr_auto] gap-4 p-5 md:items-center hover:bg-slate-50/50 transition-colors"
+                                className="grid grid-cols-1 md:grid-cols-[2fr_2fr_3fr_1fr_auto] gap-4 p-6 hover:bg-gray-50/50 transition-colors group"
                             >
                                 {/* Name */}
-                                <div className="flex flex-col gap-1">
-                                    <span className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Customer Name</span>
-                                    <span className="font-semibold text-gray-900 flex items-center gap-2">
-                                        <User className="w-4 h-4 md:hidden text-gray-400" />
-                                        {msg.name}
-                                    </span>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-[var(--soft-bg)] flex items-center justify-center text-[var(--primary)] font-bold shrink-0">
+                                        {msg.name.charAt(0).toUpperCase()}
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-gray-900">{msg.name}</p>
+                                        <span className="md:hidden text-xs text-gray-400">Customer</span>
+                                    </div>
                                 </div>
 
                                 {/* Email */}
-                                <div className="flex flex-col gap-1">
-                                    <span className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Email</span>
-                                    <span className="text-gray-600 truncate flex items-center gap-2 text-sm">
-                                        <Mail className="w-4 h-4 md:hidden text-gray-400" />
-                                        {msg.email}
-                                    </span>
+                                <div className="flex items-center gap-2 text-gray-600 text-sm">
+                                    <Mail className="w-4 h-4 text-gray-400 md:hidden" />
+                                    <span className="truncate">{msg.email}</span>
                                 </div>
 
-                                {/* Message Content */}
-                                <div className="flex flex-col gap-1 overflow-hidden">
-                                    <span className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Inquiry Message</span>
-                                    <p className="text-gray-700 text-sm italic border-l-2 border-slate-200 pl-3 py-1">
+                                {/* Message */}
+                                <div className="text-gray-600 text-sm leading-relaxed">
+                                    <span className="md:hidden font-bold text-xs text-gray-400 block mb-1">Message</span>
+                                    <p className="line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
                                         "{msg.message}"
                                     </p>
                                 </div>
 
                                 {/* Date */}
-                                <div className="flex flex-col gap-1">
-                                    <span className="md:hidden text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Date</span>
-                                    <span className="text-gray-500 text-xs flex items-center gap-2">
-                                        <Calendar className="w-4 h-4 md:hidden text-gray-400" />
-                                        {new Date(msg.created_at).toLocaleDateString()}
-                                    </span>
+                                <div className="text-sm text-gray-500 whitespace-nowrap flex items-center gap-2 md:block">
+                                    <Calendar className="w-4 h-4 md:hidden" />
+                                    {new Date(msg.created_at).toLocaleDateString()}
                                 </div>
 
-                                {/* Mark as Done Button */}
-                                <div className="md:text-right pt-2 md:pt-0">
+                                {/* Action */}
+                                <div className="flex justify-end items-center mt-2 md:mt-0">
                                     <button
                                         onClick={() => handleMarkAsDone(msg.id)}
-                                        className="flex w-full md:w-auto items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm active:scale-95"
+                                        className="flex items-center gap-2 bg-white border border-gray-200 hover:border-green-500 hover:text-green-600 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-sm active:scale-95 whitespace-nowrap"
+                                        title="Mark as Done"
                                     >
                                         <Check className="w-4 h-4" />
-                                        Mark as Done
+                                        <span className="md:hidden lg:inline">Mark Done</span>
                                     </button>
                                 </div>
                             </div>

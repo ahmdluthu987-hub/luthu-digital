@@ -86,7 +86,7 @@ export default function Chatbot() {
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setIsOpen(true)}
                         aria-label="Open chatbot"
-                        className="fixed bottom-6 right-6 w-16 h-16 bg-[#004D40] text-white rounded-full shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] z-50 flex items-center justify-center group border-2 border-[#FF6B35]"
+                        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 bg-[#004D40] text-white rounded-full shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] z-50 flex items-center justify-center group border-2 border-[#FF6B35]"
                     >
                         {/* Pulse Effect */}
                         <div className="absolute inset-0 rounded-full bg-[#FF6B35]/20 animate-ping group-hover:hidden" />
@@ -116,11 +116,11 @@ export default function Chatbot() {
                             opacity: 1,
                             scale: 1,
                             y: 0,
-                            height: isMinimized ? "64px" : "600px"
+                            height: isMinimized ? "auto" : "min(600px, 80vh)"
                         }}
                         exit={{ opacity: 0, scale: 0.8, y: 100 }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className={`fixed bottom-6 right-6 w-[90vw] sm:w-[400px] flex flex-col z-50 font-sans shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] rounded-3xl overflow-hidden border border-primary/10`}
+                        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100vw-32px)] sm:w-[400px] flex flex-col z-50 font-sans shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden border border-primary/10 bg-white`}
                     >
                         {/* Header */}
                         <div className="bg-primary p-4 flex items-center justify-between relative overflow-hidden shrink-0">
@@ -158,7 +158,7 @@ export default function Chatbot() {
                         {/* Chat Messages */}
                         {!isMinimized && (
                             <>
-                                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-cream bg-[url('/grid.svg')] bg-fixed">
+                                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-cream bg-[url('/grid.svg')] bg-fixed overscroll-contain">
                                     {messages.map((m, i) => (
                                         <motion.div
                                             key={i}
@@ -168,7 +168,7 @@ export default function Chatbot() {
                                             className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                                         >
                                             <div
-                                                className={`max-w-[85%] p-4 rounded-2xl text-sm font-medium leading-relaxed shadow-sm ${m.role === "user"
+                                                className={`max-w-[85%] p-3 sm:p-4 rounded-2xl text-sm font-medium leading-relaxed shadow-sm break-words ${m.role === "user"
                                                     ? "bg-primary text-white rounded-tr-none shadow-primary/10"
                                                     : "bg-white text-primary border border-primary/5 rounded-tl-none"
                                                     }`}
@@ -194,7 +194,7 @@ export default function Chatbot() {
                                 </div>
 
                                 {/* Input Area */}
-                                <div className="p-4 bg-white border-t border-primary/5 shrink-0">
+                                <div className="p-3 sm:p-4 bg-white border-t border-primary/5 shrink-0 safe-area-pb">
                                     <div className="relative flex items-center gap-2">
                                         <input
                                             type="text"
@@ -203,7 +203,7 @@ export default function Chatbot() {
                                             onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                             placeholder="Ask anything..."
                                             aria-label="Type your message"
-                                            className="w-full bg-soft-bg border border-primary/10 text-primary rounded-2xl py-4 pl-5 pr-14 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-primary/30"
+                                            className="w-full bg-soft-bg border border-primary/10 text-primary rounded-2xl py-3 pl-4 pr-12 text-base sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-primary/30"
                                         />
                                         <motion.button
                                             whileHover={{ scale: 1.05, y: -1 }}

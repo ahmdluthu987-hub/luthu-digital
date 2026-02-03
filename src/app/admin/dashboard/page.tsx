@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
-import { Mail, Clock, CheckCircle } from "lucide-react";
+import { Mail, Clock, CheckCircle, Users } from "lucide-react";
+import StatCard from "@/components/admin/StatCard";
 
 /**
  * Admin Dashboard Overview (Server Component)
@@ -25,77 +26,84 @@ export default async function DashboardPage() {
         .single();
 
     if (!profile || profile.role !== "admin") {
-        // If not admin, kick them out and clear session to prevent redirect loop
         await supabase.auth.signOut();
         redirect("/admin/login");
     }
 
     // 4. Fetch Stats (Server-Side)
-    // using Promise.all for faster parallel fetching
     const [totalRes, pendingRes, completedRes] = await Promise.all([
         supabase.from("contacts").select("*", { count: "exact", head: true }),
         supabase.from("contacts").select("*", { count: "exact", head: true }).eq("status", "new"),
         supabase.from("contacts").select("*", { count: "exact", head: true }).eq("status", "done")
     ]);
 
+    // Placeholder for subscribers until table is implemented
+    const subscribersCount = 0;
+
+    // Calculate trends (mock logic for demo purposes, can be real later)
     const stats = {
         total: totalRes.count || 0,
         pending: pendingRes.count || 0,
         completed: completedRes.count || 0,
+        subscribers: subscribersCount
     };
-
-    const statCards = [
-        {
-            label: "Total Messages",
-            value: stats.total,
-            icon: Mail,
-            color: "text-blue-600",
-            bg: "bg-blue-50"
-        },
-        {
-            label: "Pending (New)",
-            value: stats.pending,
-            icon: Clock,
-            color: "text-orange-600",
-            bg: "bg-orange-50"
-        },
-        {
-            label: "Completed",
-            value: stats.completed,
-            icon: CheckCircle,
-            color: "text-green-600",
-            bg: "bg-green-50"
-        },
-    ];
 
     return (
         <div>
-            <h1 className="text-3xl font-bold text-[var(--primary)] mb-8">Dashboard Overview</h1>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {statCards.map((card) => (
-                    <div
-                        key={card.label}
-                        className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4 transition-transform hover:scale-[1.02]"
-                    >
-                        <div className={`${card.bg} p-4 rounded-xl`}>
-                            <card.icon className={`w-8 h-8 ${card.color}`} />
-                        </div>
-                        <div>
-                            <p className="text-sm font-medium text-gray-500">{card.label}</p>
-                            <p className="text-3xl font-bold text-gray-900">{card.value}</p>
-                        </div>
-                    </div>
-                ))}
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-800">Dashboard Overview</h1>
+                <p className="text-gray-500 mt-1">Welcome back, here's what's happening today.</p>
             </div>
 
-            <div className="mt-12 p-8 glass-card rounded-2xl border border-white/20">
-                <h3 className="text-xl font-semibold mb-4 text-[var(--primary)]">Welcome, Admin</h3>
-                <p className="text-gray-600 max-w-2xl">
-                    Use the navigation on the left to manage pending inquiries. You can mark messages as completed once you've handled them.
-                </p>
-                <div className="mt-4 p-4 bg-emerald-50 border border-emerald-100 rounded-lg text-emerald-700 text-sm">
-                    <span className="font-semibold">Security Active:</span> You are viewing this page because you are verified as an Admin by the server.
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <StatCard
+                    title="Total Leads"
+                    value={stats.total}
+                    icon={Mail}
+                    trend="+12% vs last month"
+                />
+                <StatCard
+                    title="Pending"
+                    value={stats.pending}
+                    icon={Clock}
+                    trend={stats.pending > 0 ? "Needs Action" : "All Good"}
+                />
+                <StatCard
+                    title="Completed"
+                    value={stats.completed}
+                    icon={CheckCircle}
+                />
+                <StatCard
+                    title="Subscribers"
+                    value={stats.subscribers}
+                    icon={Users}
+                />
+            </div>
+
+            {/* Quick Actions / Recent Activity Section can go here */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 className="text-lg font-bold text-gray-800 mb-4">Quick Setup Guide</h3>
+                    <div className="space-y-4">
+                        <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-xl">
+                            <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
+                                <Mail className="w-5 h-5" />
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-blue-900">Check Pending Leads</h4>
+                                <p className="text-sm text-blue-700 mt-1">You have {stats.pending} pending inquiries waiting for a response.</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4 p-4 bg-green-50 rounded-xl">
+                            <div className="bg-green-100 p-2 rounded-lg text-green-600">
+                                <CheckCircle className="w-5 h-5" />
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-green-900">Mark as Completed</h4>
+                                <p className="text-sm text-green-700 mt-1">Keep your inbox zero by marking leads as done.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
