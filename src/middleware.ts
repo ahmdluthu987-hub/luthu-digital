@@ -1,69 +1,30 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { createServerClient } from "@supabase/ssr";
 
-export async function middleware(req: NextRequest) {
-    // Create an initial response that will be modified if cookies are refreshed
-    let res = NextResponse.next({
-        request: {
-            headers: req.headers,
-        },
-    });
+export function middleware(req: NextRequest) {
+    const { pathname } = req.nextUrl;
 
-    const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        {
-            cookies: {
-                getAll() {
-                    return req.cookies.getAll();
-                },
-                setAll(cookiesToSet) {
-                    cookiesToSet.forEach(({ name, value, options }) => req.cookies.set(name, value));
-                    res = NextResponse.next({
-                        request: req,
-                    });
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        res.cookies.set(name, value, options)
-                    );
-                },
-            },
-        }
-    );
-
-    const pathname = req.nextUrl.pathname;
-
-    // ✅ Allow login page ALWAYS
-    if (pathname === "/admin/login") {
-        return res;
+    // Allow login page always
+    if (pathname.startsWith("/admin/login")) {
+        return NextResponse.next();
     }
 
-    // 🔒 Protect ALL other /admin routes
-    if (pathname.startsWith("/admin")) {
-        // Note: getSession is used here for performance. 
-        // For strict security, one might consider getUser, but getSession is standard for middleware checks.
-        const {
-            data: { session },
-        } = await supabase.auth.getSession();
+    // Only check if user is logged in (cookie exists)
+    // We check for commonly used Supabase cookie names or the specific project one if known.
+    // The user provided code checks "sb-access-token" or "sb-refresh-token".
+    // However, default @supabase/ssr might uses `sb-<ref>-auth-token`.
+    // But trusting the user's snippet for now as "FINAL VERSION".
+    const hasSession =
+        req.cookies.get("sb-access-token") ||
+        req.cookies.get("sb-refresh-token") ||
+        // Fallback for standard supabase-js v2 cookies just in case
+        Array.from(req.cookies.getAll()).some((c) => c.name.startsWith("sb-") && c.name.endsWith("-auth-token"));
 
-        // Not logged in
-        if (!session) {
-            return NextResponse.redirect(new URL("/admin/login", req.url));
-        }
-
-        // Check admin role
-        const { data: profile } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", session.user.id)
-            .single();
-
-        if (profile?.role !== "admin") {
-            return NextResponse.redirect(new URL("/", req.url));
-        }
+    if (!hasSession) {
+        return NextResponse.redirect(new URL("/admin/login", req.url));
     }
 
-    return res;
+    return NextResponse.next();
 }
 
 export const config = {
