@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 /**
  * Admin Login Page
- * Handles Supabase Auth only. Role verification is done on the Server in /admin/dashboard
+ * Handles Supabase Auth only. Role verification is done in middleware.ts
  */
 export default function AdminLogin() {
     const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ export default function AdminLogin() {
             if (authError) throw authError;
 
             // 2. Success: Redirect to Dashboard
-            // Authorization (Admin Role Check) happens on the server in /admin/dashboard/layout.tsx
+            // Authorization (Admin Role Check) happens in middleware.ts
             router.replace("/admin/dashboard");
             router.refresh(); // Refresh to ensure server components run fresh checks
         } catch (error: any) {
