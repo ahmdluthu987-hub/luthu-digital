@@ -112,24 +112,43 @@ export default function Chatbot() {
                 )}
             </AnimatePresence>
 
+            {/* Mobile Backdrop */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsOpen(false)}
+                        className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-40 sm:hidden"
+                    />
+                )}
+            </AnimatePresence>
+
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         role="dialog"
                         aria-label="Customer support chat"
-                        initial={{ opacity: 0, scale: 0.8, y: 100, transformOrigin: "bottom right" }}
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{
                             opacity: 1,
                             scale: 1,
                             y: 0,
-                            height: isMinimized ? "auto" : "min(600px, 80vh)"
+                            height: isMinimized ? "auto" : "min(650px, 80vh)" // Default for desktop
                         }}
-                        exit={{ opacity: 0, scale: 0.8, y: 100 }}
-                        transition={{ type: "spring", damping: 30, stiffness: 250 }}
-                        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100vw-32px)] sm:w-[400px] flex flex-col z-50 font-sans shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden border border-primary/10 bg-white will-change-transform`}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                        className={`fixed bottom-0 left-0 right-0 sm:left-auto sm:right-6 sm:bottom-6 
+                            w-full sm:w-[400px] 
+                            flex flex-col z-50 font-sans shadow-2xl 
+                            rounded-t-3xl rounded-b-none sm:rounded-3xl 
+                            border-t border-x sm:border border-primary/10 bg-white
+                            ${!isMinimized ? 'h-[85dvh] sm:h-auto' : ''} 
+                            will-change-transform`}
                     >
                         {/* Header */}
-                        <div className="bg-primary p-4 flex items-center justify-between relative overflow-hidden shrink-0">
+                        <div className="bg-primary p-4 flex items-center justify-between relative overflow-hidden shrink-0 rounded-t-3xl sm:rounded-t-[inherit]">
                             <div className="absolute inset-0 bg-gradient-to-tr from-primary to-primary-light opacity-50"></div>
                             <div className="flex items-center gap-3 relative z-10">
                                 <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
@@ -209,7 +228,7 @@ export default function Chatbot() {
                                             onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                             placeholder="Ask anything..."
                                             aria-label="Type your message"
-                                            className="w-full bg-soft-bg border border-primary/10 text-primary rounded-2xl py-3 pl-4 pr-12 text-base sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-primary/30"
+                                            className="w-full bg-soft-bg border border-primary/10 text-primary rounded-2xl py-3 pl-4 pr-12 text-[16px] sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-primary/30"
                                         />
                                         <motion.button
                                             whileHover={{ scale: 1.05, y: -1 }}

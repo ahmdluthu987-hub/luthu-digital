@@ -113,25 +113,25 @@ const Navbar = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] md:hidden bg-white/95 backdrop-blur-3xl overflow-hidden"
+                        className="fixed inset-0 z-[100] md:hidden bg-white/95 backdrop-blur-3xl overflow-y-auto custom-scrollbar"
                     >
                         {/* Decorative Background for Mobile Menu */}
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+                        <div className="fixed inset-0 pointer-events-none opacity-[0.03]">
                             <div className="absolute inset-0 bg-grid-slate-900/[0.1] bg-[size:40px_40px]" />
                             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-[100px]" />
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-[100px]" />
                         </div>
 
-                        <div className="flex flex-col h-full pt-32 pb-10 px-8 relative z-10">
+                        <div className="flex flex-col min-h-full pt-24 pb-10 px-8 relative z-10">
                             <motion.span
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 0.4, y: 0 }}
-                                className="text-[10px] font-black uppercase tracking-[0.4em] mb-12 text-primary"
+                                className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-primary"
                             >
                                 Navigation
                             </motion.span>
 
-                            <div className="space-y-4">
+                            <div className="space-y-4 mb-10">
                                 {navLinks.map((link, i) => (
                                     <motion.div
                                         key={link.name}
@@ -141,7 +141,7 @@ const Navbar = () => {
                                     >
                                         <Link
                                             href={link.href}
-                                            className="text-[44px] min-[375px]:text-5xl font-black text-primary/30 hover:text-primary transition-all flex items-center gap-4 group"
+                                            className="text-3xl min-[375px]:text-4xl font-black text-primary/30 hover:text-primary transition-all flex items-center gap-4 group"
                                             onClick={() => setIsOpen(false)}
                                         >
                                             <span className="group-hover:text-accent transition-colors">0{i + 1}</span>
@@ -154,8 +154,8 @@ const Navbar = () => {
                                 ))}
                             </div>
 
-                            <div className="mt-auto space-y-10">
-                                <div className="space-y-4">
+                            <div className="mt-auto space-y-8">
+                                <div className="space-y-3">
                                     <motion.p
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 0.5 }}
@@ -167,7 +167,7 @@ const Navbar = () => {
                                         href="mailto:hello@ahmdluthu.com"
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="text-xl font-bold text-primary hover:text-accent transition-colors block"
+                                        className="text-lg font-bold text-primary hover:text-accent transition-colors block"
                                     >
                                         hello@ahmdluthu.com
                                     </motion.a>
@@ -180,7 +180,7 @@ const Navbar = () => {
                                 >
                                     <Link
                                         href="/#contact"
-                                        className="w-full py-5 bg-primary text-white rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/20 active:scale-[0.98] transition-all"
+                                        className="w-full py-4 bg-primary text-white rounded-xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/20 active:scale-[0.98] transition-all"
                                         onClick={(e) => {
                                             e.preventDefault();
                                             setIsOpen(false);
