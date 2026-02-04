@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
     const res = NextResponse.next();
 
     const supabase = createServerClient(
@@ -28,14 +28,12 @@ export async function middleware(req: NextRequest) {
     } = await supabase.auth.getSession();
 
     // 🔒 Protect ALL /admin routes
-    // We exclude /admin/login to prevent an infinite redirect loop
+    // Added safety check to prevent infinite redirect loop on login page
     if (req.nextUrl.pathname.startsWith("/admin") && !req.nextUrl.pathname.startsWith("/admin/login")) {
-        // Not logged in
         if (!session) {
             return NextResponse.redirect(new URL("/admin/login", req.url));
         }
 
-        // Check admin role
         const { data: profile } = await supabase
             .from("profiles")
             .select("role")
