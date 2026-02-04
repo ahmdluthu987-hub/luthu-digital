@@ -10,30 +10,36 @@ export async function middleware(req: NextRequest) {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
         {
             cookies: {
-                get(name: string) {
-                    return req.cookies.get(name)?.value;
-                },
-                set(name, value, options) {
-                    res.cookies.set({ name, value, ...options });
-                },
-                remove(name, options) {
-                    res.cookies.set({ name, value: "", ...options });
-                },
+                get: (name) => req.cookies.get(name)?.value,
+                set: (name, value, options) =>
+                    res.cookies.set({ name, value, ...options }),
+                remove: (name, options) =>
+                    res.cookies.set({ name, value: "", ...options }),
             },
         }
     );
 
-    const {
-        data: { session },
-    } = await supabase.auth.getSession();
+    const pathname = req.nextUrl.pathname;
 
-    // 🔒 Protect ALL /admin routes
-    // Added safety check to prevent infinite redirect loop on login page
-    if (req.nextUrl.pathname.startsWith("/admin") && !req.nextUrl.pathname.startsWith("/admin/login")) {
+    // ✅ Allow login page ALWAYS
+    if (pathname === "/admin/login") {
+        return res;
+    }
+
+    // 🔒 Protect ALL other /admin routes
+    if (pathname.startsWith("/admin")) {
+        const {
+            data: { session },
+        } = await supabase.auth.getSession();
+
+        // Not logged in
         if (!session) {
-            return NextResponse.redirect(new URL("/admin/login", req.url));
+            return NextResponse.redirect(
+                new URL("/admin/login", req.url)
+            );
         }
 
+        // Check admin role
         const { data: profile } = await supabase
             .from("profiles")
             .select("role")
