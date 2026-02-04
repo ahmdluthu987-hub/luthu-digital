@@ -196,8 +196,8 @@ const Footer = () => {
                         © {currentYear} Ahmad Luthu · Digital Expert
                     </p>
                     <div className="flex items-center gap-6">
-                        <Link href="#" className="text-white/20 hover:text-white/60 text-[10px] font-black uppercase tracking-widest transition-colors">Privacy Policy</Link>
-                        <Link href="#" className="text-white/20 hover:text-white/60 text-[10px] font-black uppercase tracking-widest transition-colors">Terms of Service</Link>
+                        <Link href="/privacy-policy" className="text-white/20 hover:text-white/60 text-[10px] font-black uppercase tracking-widest transition-colors">Privacy Policy</Link>
+                        <Link href="/terms-of-service" className="text-white/20 hover:text-white/60 text-[10px] font-black uppercase tracking-widest transition-colors">Terms of Service</Link>
                     </div>
                     <p className="text-white/40 text-xs flex items-center gap-2">
                         Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> in Kerala

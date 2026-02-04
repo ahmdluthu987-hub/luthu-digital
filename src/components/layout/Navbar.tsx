@@ -82,9 +82,11 @@ const Navbar = () => {
                     <Link
                         href="/#contact"
                         onClick={(e) => {
-                            e.preventDefault();
-                            // Trigger custom event to open chatbot
-                            window.dispatchEvent(new Event('openChatbot'));
+                            if (window.location.pathname === '/') {
+                                e.preventDefault();
+                                // Trigger custom event to open chatbot
+                                window.dispatchEvent(new Event('openChatbot'));
+                            }
                         }}
                         className="group flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-full font-bold text-sm hover:bg-primary-light hover:shadow-xl hover:shadow-primary/20 transition-all"
                     >

@@ -72,11 +72,18 @@ export default function MouseEffect() {
             document.head.appendChild(style);
         }
 
+        let lastCheck = 0;
+
         // 5. Event Listeners
         const handleMouseMove = (e: MouseEvent) => {
             // Using useMotionValue.set ensures no React re-renders, just direct DOM updates via Framer
             mouseX.set(e.clientX);
             mouseY.set(e.clientY);
+
+            // Throttle heavier DOM checks to ~20fps (50ms)
+            const now = Date.now();
+            if (now - lastCheck < 50) return;
+            lastCheck = now;
 
             // Debounce hover detection slightly or optimize target check
             const target = e.target as HTMLElement;

@@ -338,9 +338,9 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
 
                                             <div className="flex items-center gap-4">
                                                 {[
-                                                    { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                                                    { Icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-                                                    { Icon: Twitter, href: "https://twitter.com", label: "Twitter" }
+                                                    { Icon: Linkedin, href: "https://linkedin.com/in/ahmdluthu", label: "LinkedIn" },
+                                                    { Icon: Instagram, href: "https://instagram.com/ahmdluthu", label: "Instagram" },
+                                                    { Icon: Twitter, href: "https://twitter.com/ahmdluthu", label: "Twitter" }
                                                 ].map((social, idx) => (
                                                     <a
                                                         key={idx}
