@@ -31,6 +31,12 @@ export default function Chatbot() {
         scrollToBottom();
     }, [messages]);
 
+    useEffect(() => {
+        const handleOpenChatbot = () => setIsOpen(true);
+        window.addEventListener('openChatbot', handleOpenChatbot);
+        return () => window.removeEventListener('openChatbot', handleOpenChatbot);
+    }, []);
+
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
 
@@ -119,8 +125,8 @@ export default function Chatbot() {
                             height: isMinimized ? "auto" : "min(600px, 80vh)"
                         }}
                         exit={{ opacity: 0, scale: 0.8, y: 100 }}
-                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100vw-32px)] sm:w-[400px] flex flex-col z-50 font-sans shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden border border-primary/10 bg-white`}
+                        transition={{ type: "spring", damping: 30, stiffness: 250 }}
+                        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100vw-32px)] sm:w-[400px] flex flex-col z-50 font-sans shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden border border-primary/10 bg-white will-change-transform`}
                     >
                         {/* Header */}
                         <div className="bg-primary p-4 flex items-center justify-between relative overflow-hidden shrink-0">

@@ -1,0 +1,5 @@
+Report:
+URL: https://xydlnncytzheguzxlcxv.supabase.co
+Key Length: 208
+Checking 'leads' table...
+leads Error: {"message":""}

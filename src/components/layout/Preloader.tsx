@@ -21,26 +21,29 @@ const Preloader = () => {
         // Prevent scrolling while loading
         document.body.style.overflow = "hidden";
 
+        const startTime = Date.now();
+        const duration = 1200; // Total duration in ms
+
         const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        setIsLoading(false);
-                        document.body.style.overflow = "auto";
-                    }, 200);
-                    return 100;
-                }
-                const increment = Math.random() * (progress < 80 ? 15 : 10);
-                return Math.min(prev + increment, 100);
-            });
-        }, 30);
+            const elapsed = Date.now() - startTime;
+            const targetProgress = Math.min((elapsed / duration) * 100, 100);
+
+            setProgress(targetProgress);
+
+            if (targetProgress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    setIsLoading(false);
+                    document.body.style.overflow = "auto";
+                }, 150);
+            }
+        }, 16); // ~60fps
 
         return () => {
             clearInterval(interval);
-            document.body.style.overflow = "auto"; // Ensure scroll is restored on cleanup
+            document.body.style.overflow = "auto";
         };
-    }, [isLoading, progress]);
+    }, [isLoading]);
 
     return (
         <AnimatePresence mode="wait">

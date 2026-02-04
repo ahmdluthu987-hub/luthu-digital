@@ -5,7 +5,11 @@ import Preloader from "@/components/layout/Preloader";
 
 import ClientEffects from "@/components/layout/ClientEffects";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ahmdluthu.com"),

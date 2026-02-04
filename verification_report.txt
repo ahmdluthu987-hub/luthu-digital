@@ -1,0 +1,15 @@
+VERIFICATION REPORT
+URL: https://xydlnncytzheguzxlcxv.supabase.co
+-------------------
+
+[ TEST 1: ANON KEY ]
+[leads] ❌ FAILED: undefined - 
+[contacts] ❌ FAILED: undefined - 
+[subscriptions] ❌ FAILED: undefined - 
+[profiles] ❌ FAILED: undefined - 
+
+[ TEST 2: SERVICE KEY ]
+[leads] ✅ SUCCESS (Count: 10)
+[contacts] ✅ SUCCESS (Count: 6)
+[subscriptions] ✅ SUCCESS (Count: 6)
+[profiles] ❌ FAILED: undefined - 

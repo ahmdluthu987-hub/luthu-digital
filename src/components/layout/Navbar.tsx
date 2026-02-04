@@ -65,6 +65,13 @@ const Navbar = () => {
                             <Link
                                 key={link.name}
                                 href={link.href}
+                                onClick={(e) => {
+                                    if (link.href.startsWith("/#") && window.location.pathname === '/') {
+                                        e.preventDefault();
+                                        const id = link.href.split("#")[1];
+                                        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                }}
                                 className="text-primary/60 hover:text-primary font-bold text-[11px] uppercase tracking-[0.2em] transition-all hover:-translate-y-0.5"
                             >
                                 {link.name}
@@ -74,7 +81,12 @@ const Navbar = () => {
 
                     <Link
                         href="/#contact"
-                        className="group flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-primary-light hover:shadow-xl hover:shadow-primary/20 transition-all"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            // Trigger custom event to open chatbot
+                            window.dispatchEvent(new Event('openChatbot'));
+                        }}
+                        className="group flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-full font-bold text-sm hover:bg-primary-light hover:shadow-xl hover:shadow-primary/20 transition-all"
                     >
                         <span>Start Growth</span>
                         <div className="w-5 h-5 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
@@ -167,9 +179,14 @@ const Navbar = () => {
                                     <Link
                                         href="/#contact"
                                         className="w-full py-5 bg-primary text-white rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/20 active:scale-[0.98] transition-all"
-                                        onClick={() => setIsOpen(false)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setIsOpen(false);
+                                            // Small delay to allow menu to close first
+                                            setTimeout(() => window.dispatchEvent(new Event('openChatbot')), 300);
+                                        }}
                                     >
-                                        Free Consultation
+                                        Start Growth
                                         <ArrowUpRight className="w-5 h-5" />
                                     </Link>
                                 </motion.div>

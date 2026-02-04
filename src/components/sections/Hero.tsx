@@ -79,11 +79,11 @@ const Hero = () => {
     };
 
     const itemVariants: Variants = {
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, y: 20 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
         }
     };
 
@@ -223,13 +223,13 @@ const Hero = () => {
                             className="relative w-[85%] max-w-[400px] aspect-[4/5] lg:w-full lg:max-w-[550px] lg:h-[110%] lg:absolute lg:bottom-0 lg:right-0"
                         >
                             <Image
-                                src="/ahmdluthu.png"
+                                src="/ai-digital-marketing-expert-kannur.webp"
                                 alt="Ahmad Luthu - Digital Marketing Expert"
                                 fill
-                                sizes="(max-width: 768px) 85vw, (max-width: 1200px) 50vw, 40vw"
-                                className="object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-10 translate-y-[2px]"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 450px"
+                                className="object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-10 translate-y-[2px] will-change-transform"
                                 priority
-                                quality={90}
+                                quality={85}
                                 loading="eager"
                             />
 

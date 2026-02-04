@@ -140,7 +140,7 @@ const WhyChooseMe = () => {
                             {/* Main Image Wrapper */}
                             <div className="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 transition-transform hover:scale-[1.01] duration-500">
                                 <Image
-                                    src="/ahmdluthu.png" // Using the existing portrait image
+                                    src="/ai-digital-marketing-expert-kannur.webp" // Using the existing portrait image
                                     alt="Ahmad Luthu - Best Freelance Digital Marketer in Kannur"
                                     width={600}
                                     height={800}

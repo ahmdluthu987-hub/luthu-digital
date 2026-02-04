@@ -37,6 +37,12 @@ export default function MouseEffect() {
     const rippleX = useSpring(mouseX, rippleConfig);
     const rippleY = useSpring(mouseY, rippleConfig);
 
+    const hoverStateRef = React.useRef(hoverState);
+
+    useEffect(() => {
+        hoverStateRef.current = hoverState;
+    }, [hoverState]);
+
     useEffect(() => {
         // 3. Environment & Mobile Detection
         // Disable on server, bots, or small screens (<1024px per requirements)
@@ -72,20 +78,22 @@ export default function MouseEffect() {
             mouseX.set(e.clientX);
             mouseY.set(e.clientY);
 
-            // Intelligent Hover Detection
+            // Debounce hover detection slightly or optimize target check
             const target = e.target as HTMLElement;
+            if (!target) return;
 
             // Check for Links/Buttons
             const isLink = target.closest('a, button, .cta, [role="button"], input, textarea, label');
-            // Check for Text
-            const isText = target.closest('p, h1, h2, h3, h4, h5, h6, span, li');
 
             if (isLink) {
-                setHoverState('link');
-            } else if (isText) {
-                setHoverState('text');
+                if (hoverStateRef.current !== 'link') setHoverState('link');
             } else {
-                setHoverState('default');
+                const isText = target.closest('p, h1, h2, h3, h4, h5, h6, span, li');
+                if (isText) {
+                    if (hoverStateRef.current !== 'text') setHoverState('text');
+                } else {
+                    if (hoverStateRef.current !== 'default') setHoverState('default');
+                }
             }
         };
 

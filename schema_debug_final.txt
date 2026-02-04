@@ -1,0 +1,9 @@
+leads_cols: id,name,email,phone,service,status,source,created_at
+leads_sample: {"id":"98269044-99bc-43a7-8d6b-68d6a0655260","name":"Shaamil","email":"sinanmc46@gmail.com","phone":"87654565","service":"SEO","status":"new","source":"chatbot","created_at":"2026-02-02T17:44:42.673748+00:00"}
+
+contacts_cols: id,name,email,message,status,source,created_at
+contacts_sample: {"id":"73a20f61-99b7-4710-8fe0-34e4fe641f77","name":"MOHAMMED SINAN MC","email":"sinanmc46@gmail.com","message":"sdfghj","status":"new","source":"contact_form","created_at":"2026-02-03T07:05:57.252931+00:00"}
+
+subscriptions_cols: id,email,status,source,created_at
+subscriptions_sample: {"id":"83660750-d480-4b87-a519-15b617d2a736","email":"sinanmc46@gmail.com","status":"active","source":"footer","created_at":"2026-02-03T07:21:22.042664+00:00"}
+

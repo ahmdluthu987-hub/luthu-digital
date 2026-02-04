@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { ArrowLeft, ArrowRight, Calendar, Clock, Share2, Sparkles, List, ChevronRight, Instagram, Linkedin, Twitter, Check, ArrowUp } from 'lucide-react';
-import { motion, useScroll, useSpring, AnimatePresence, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, AnimatePresence, useMotionValueEvent } from 'framer-motion';
 import { BlogPost, BlogSection, blogPosts } from '@/data/blog-posts';
 
 interface BlogPostContentProps {
@@ -16,11 +16,7 @@ interface BlogPostContentProps {
 export default function BlogPostContent({ post }: BlogPostContentProps) {
     const [isTocOpen, setIsTocOpen] = useState(false);
     const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
+
     const [isShared, setIsShared] = useState(false);
     const [activeSection, setActiveSection] = useState(0);
     const [showBackToTop, setShowBackToTop] = useState(false);
