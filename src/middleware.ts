@@ -27,13 +27,15 @@ export async function middleware(req: NextRequest) {
         data: { session },
     } = await supabase.auth.getSession();
 
-    // 🔒 Not logged in
-    if (!session && req.nextUrl.pathname.startsWith("/admin")) {
-        return NextResponse.redirect(new URL("/admin/login", req.url));
-    }
+    // 🔒 Protect ALL /admin routes
+    // We exclude /admin/login to prevent an infinite redirect loop
+    if (req.nextUrl.pathname.startsWith("/admin") && !req.nextUrl.pathname.startsWith("/admin/login")) {
+        // Not logged in
+        if (!session) {
+            return NextResponse.redirect(new URL("/admin/login", req.url));
+        }
 
-    // 🔒 Check admin role
-    if (session && req.nextUrl.pathname.startsWith("/admin")) {
+        // Check admin role
         const { data: profile } = await supabase
             .from("profiles")
             .select("role")
