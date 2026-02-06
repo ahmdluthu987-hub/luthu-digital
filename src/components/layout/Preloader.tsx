@@ -22,7 +22,7 @@ const Preloader = () => {
         document.body.style.overflow = "hidden";
 
         const startTime = Date.now();
-        const duration = 1200; // Total duration in ms
+        const duration = 500; // Total duration in ms
 
         const interval = setInterval(() => {
             const elapsed = Date.now() - startTime;

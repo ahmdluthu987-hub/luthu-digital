@@ -4,146 +4,143 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
     ArrowRight,
-    Globe,
-    Target,
-    Cpu,
     Sparkles
 } from "lucide-react";
+import Link from "next/link";
 
 const AboutSection = () => {
     const stats = [
         {
             number: "02+",
-            label: "Years Expertise",
-            sub: "Hands-on High-Performance Marketing",
-            icon: <Cpu className="w-5 h-5 text-accent" />
+            label: "Years of Hands-On Experience",
+            ariaLabel: "2 plus years of hands-on experience"
         },
         {
             number: "30+",
             label: "Projects Delivered",
-            sub: "SEO & Growth Focused Success",
-            icon: <Target className="w-5 h-5 text-accent" />
+            ariaLabel: "30 plus projects delivered"
         },
         {
             number: "20+",
-            label: "Active Clients",
-            sub: "Scaling Brands Across Kerala",
-            icon: <Globe className="w-5 h-5 text-accent" />
+            label: "Active Clients Across Kerala",
+            ariaLabel: "20 plus active clients across Kerala"
         },
     ];
 
     return (
-        <section id="about" className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-[#01201B] z-10">
-            {/* Background elements */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#01201B] via-transparent to-[#01201B]" />
+        <section
+            id="about"
+            className="relative py-16 md:py-20 lg:py-28 overflow-hidden bg-[#00241F] z-10 cursor-default"
+            aria-labelledby="about-heading"
+        >
+            {/* Background elements - Softened & Deepened */}
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] opacity-10 sm:opacity-20" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#00241F] via-transparent to-[#00241F]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#00241F]/80 via-transparent to-[#00241F]/80" />
             </div>
 
-            <div className="container mx-auto px-6 lg:px-12 xl:px-20 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+            <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
                     {/* Left: Content Side */}
-                    <div className="lg:col-span-7 order-1 lg:order-1">
+                    <div className="lg:col-span-7 flex flex-col justify-center order-1">
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                            className="space-y-10"
+                            transition={{ duration: 0.7, ease: "easeOut" }}
+                            className="space-y-8 md:space-y-12"
                         >
-                            <div className="space-y-6">
-                                <span className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-accent font-black text-[10px] uppercase tracking-widest border border-accent/20">
-                                    <Sparkles className="w-3 h-3" /> Professional Pedigree
-                                </span>
-                                <h2 className="text-4xl md:text-6xl font-black text-white leading-[1.1] tracking-tight">
-                                    Crafting Campaigns <br />
-                                    <span className="text-accent relative inline-block">
-                                        That Actually Scale.
-                                        <div className="absolute -bottom-2 left-0 w-full h-1 bg-accent/20 rounded-full" />
-                                    </span>
-                                </h2>
-                            </div>
-
-                            <div className="space-y-8 text-lg sm:text-xl text-white/70 leading-relaxed font-medium">
-                                <p className="text-balance">
-                                    <span className="text-white font-black">Ahmad Luthu</span> is an AI-first marketing strategist based in <span className="text-accent">Kannur, Kerala</span>. He doesn&apos;t just &quot;do&quot; marketing; he engineers growth systems using data-led precision.
-                                </p>
-
-                                <p className="text-balance">
-                                    By fusing <span className="text-white border-b border-white/20">Advanced SEO</span> with performance-focused AI tools, Ahmad builds resilient digital ecosystems that turn local Indian businesses into dominant market players.
-                                </p>
-
-                                <div className="grid grid-cols-2 gap-x-8 gap-y-4 pt-4">
-                                    {[
-                                        "Technical SEO Audits",
-                                        "AI Content Automation",
-                                        "Performance AdOps",
-                                        "Conversion Rate Optimization"
-                                    ].map((skill) => (
-                                        <div key={skill} className="flex items-center gap-3 text-sm font-bold text-white/50">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                                            {skill}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="pt-8">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="px-10 py-5 bg-white text-primary rounded-2xl font-black text-lg flex items-center justify-center gap-4 transition-all hover:bg-accent hover:text-white group"
+                            <header className="space-y-6 md:space-y-8">
+                                <motion.span
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-accent/5 rounded-full text-accent font-bold text-[10px] sm:text-xs uppercase tracking-widest border border-accent/10 backdrop-blur-sm"
                                 >
-                                    Detailed Portfolio
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                                    Professional Pedigree
+                                </motion.span>
+                                <h2
+                                    id="about-heading"
+                                    className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white leading-[1.1] tracking-tight text-balance"
+                                >
+                                    Expertise Behind <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-orange-400">Ahmed Luthu Kannur</span>
+                                </h2>
+                            </header>
+
+                            <div className="space-y-8 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed font-medium max-w-2xl text-pretty">
+                                <p>
+                                    <span className="text-white font-bold">Ahmed Luthu Kannur</span> is an <Link href="/blog/inside-mind-ai-first-digital-marketing-expert-kannur" className="text-accent hover:text-white underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all duration-300 cursor-pointer">AI first digital marketing expert in Kannur</Link> focused on building scalable growth systems, not just running ads. He designs data-driven SEO and performance marketing frameworks that deliver consistent, measurable ROI.
+                                </p>
+
+                                <p>
+                                    As the best freelance digital marketer in Kannur, Ahmed blends advanced SEO, performance marketing, and AI-powered automation to help brands grow sustainably. His approach is rooted in analytics, user behaviour, and conversion psychology.
+                                </p>
+
+                                <p>
+                                    Trained through hands-on experience at <a href="https://oxdu.in/en/" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-white transition-all duration-300 underline underline-offset-4 decoration-accent/30 hover:decoration-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded-sm cursor-pointer">Oxdu, Kondotty, Malappuram</a>, Ahmed Luthu Kannur now helps Kerala-based businesses scale using smart, AI-led digital strategies.
+                                </p>
+                            </div>
+
+                            <div className="pt-2 sm:pt-6 flex justify-start">
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                    className="group relative w-full sm:w-auto px-8 py-4 bg-white text-primary rounded-full font-bold text-base sm:text-lg flex items-center justify-center gap-3 overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.4)] shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 cursor-pointer"
+                                    aria-label="View detailed portfolio and contact information"
+                                >
+                                    <span className="relative z-10 transition-colors duration-300 group-hover:text-primary">Let&apos;s Discuss Your Project</span>
+                                    <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1.5 transition-transform duration-300 group-hover:text-primary" aria-hidden="true" />
+                                    <div className="absolute inset-0 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
                                 </motion.button>
                             </div>
                         </motion.div>
                     </div>
 
                     {/* Right: Stats Grid */}
-                    <div className="lg:col-span-5 order-2 lg:order-2">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6"
-                        >
+                    <aside className="lg:col-span-5 order-2 w-full pt-4 lg:pt-12" aria-label="Professional statistics and achievements">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-col gap-5 sm:gap-6">
                             {stats.map((stat, index) => (
                                 <motion.div
                                     key={index}
-                                    whileHover={{ x: 10, backgroundColor: "rgba(255,255,255,0.08)" }}
-                                    className="p-6 md:p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm transition-all relative overflow-hidden group"
+                                    initial={{ opacity: 0, x: 20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                                    whileHover={{ y: -4, transition: { duration: 0.3 } }}
+                                    className={`group relative p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/5 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-500 overflow-hidden cursor-pointer ${index === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+                                    role="article"
+                                    aria-label={stat.ariaLabel}
                                 >
-                                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-accent/5 rounded-full blur-2xl group-hover:bg-accent/10 transition-all" />
-                                    <div className="flex flex-col gap-4">
-                                        <div className="p-3 bg-white/5 rounded-xl w-fit text-accent">
-                                            {stat.icon}
-                                        </div>
-                                        <div className="space-y-1">
-                                            <h3 className="text-4xl font-black text-white">{stat.number}</h3>
-                                            <p className="text-accent font-black text-xs uppercase tracking-widest leading-none">{stat.label}</p>
-                                        </div>
-                                        <p className="text-white/40 text-[13px] font-medium leading-relaxed max-w-[200px]">
-                                            {stat.sub}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out pointer-events-none" />
+
+                                    <div className="relative z-10">
+                                        <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/50 mb-2 sm:mb-3 tracking-tight group-hover:from-white group-hover:to-accent transition-all duration-500">
+                                            {stat.number}
+                                        </h3>
+                                        <p className="text-white/50 text-base sm:text-lg font-medium leading-snug group-hover:text-white/80 transition-colors duration-300 text-balance">
+                                            {stat.label}
                                         </p>
                                     </div>
+
+                                    {/* Subtle border glow on hover */}
+                                    <div className="absolute inset-0 border border-accent/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                                 </motion.div>
                             ))}
-                        </motion.div>
-                    </div>
+                        </div>
+                    </aside>
 
                 </div>
             </div>
 
-            {/* Floating Background Glows */}
-            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
-            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[150px] pointer-events-none" />
+            {/* Ambient Glows - Further Toned Down */}
+            <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent/5 blur-[120px] rounded-full pointer-events-none opacity-20 mix-blend-screen" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-primary/20 blur-[120px] rounded-full pointer-events-none opacity-20 mix-blend-screen" aria-hidden="true" />
         </section>
     );
 };
 
 export default AboutSection;
-

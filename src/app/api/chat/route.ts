@@ -5,7 +5,7 @@ const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY,
 });
 
-const LEAD_COLLECTION_PROMPT = `You are “Growth Assistant”, a professional AI chatbot for the digital marketing portfolio website of Ahmad Luthu.
+const LEAD_COLLECTION_PROMPT = `You are “Growth Assistant”, a professional AI chatbot for the digital marketing portfolio website of Ahmed Luthu Kannur.
 
 Your primary goal:
 Convert website visitors into qualified business leads by collecting accurate contact information in a polite, non-pushy, professional manner.
@@ -64,7 +64,7 @@ DATA_END
 
 Do not tell the user you are saving data in any other way than the success message.`;
 
-const ASSISTANT_PROMPT = `You are “Growth Assistant”, a friendly and knowledgeable AI assistant for the digital marketing portfolio of Ahmad Luthu.
+const ASSISTANT_PROMPT = `You are “Growth Assistant”, a friendly and knowledgeable AI assistant for the digital marketing portfolio of Ahmed Luthu Kannur.
 
 Your goal is now to be a helpful guide. The user has already provided their contact details, so DO NOT ask for their name, email, phone, or service anymore.
 

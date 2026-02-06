@@ -4,6 +4,7 @@ import "./globals.css";
 import Preloader from "@/components/layout/Preloader";
 
 import ClientEffects from "@/components/layout/ClientEffects";
+import SchemaRegistry from "@/components/seo/SchemaRegistry";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,25 +13,66 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ahmdluthu.com"),
-  title: "Ahmad Luthu | AI-First Digital Marketing Expert in Kannur, Kerala",
-  description: "Ahmad Luthu is an AI-first digital marketing specialist based in Kannur, Kerala. Helping local businesses grow through data-driven SEO, SMM, Google Ads, and AI automation.",
+  metadataBase: new URL("https://ahmdluthukannur.in"),
+  title: {
+    default: "Best Freelance Digital Marketer in Kannur | Ahmed Luthu Kannur",
+    template: "%s | Ahmed Luthu Kannur"
+  },
+  description: "Ahmed Luthu Kannur is an AI first digital marketing expert in Kannur, helping businesses grow through data-driven SEO, performance marketing, and ROI-focused strategies.",
   keywords: [
     "AI first digital marketing expert in Kannur",
     "Digital marketing expert in Kannur",
     "SEO expert in Kannur",
     "SMM SEM services Kerala",
     "AI digital marketing Kerala",
-    "Kannur digital marketing consultant"
+    "Kannur digital marketing consultant",
+    "Ahmed Luthu Kannur",
+    "Digital Marketing Agency Kannur"
   ],
-  authors: [{ name: "Ahmad Luthu" }],
+  authors: [{ name: "Ahmed Luthu Kannur", url: "https://ahmdluthu.com" }],
+  creator: "Ahmed Luthu Kannur",
+  publisher: "Ahmed Luthu Kannur",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: './',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: "Ahmad Luthu | AI-First Digital Marketing Expert in Kannur",
-    description: "Expert AI-powered digital marketing services for businesses in Kerala.",
-    type: "website",
+    title: "Best Freelance Digital Marketer in Kannur | Ahmed Luthu Kannur",
+    description: "Ahmed Luthu Kannur is an AI first digital marketing expert in Kannur, helping businesses grow through data-driven SEO, performance marketing, and ROI-focused strategies.",
+    url: "https://ahmdluthukannur.in",
+    siteName: "Ahmed Luthu Kannur Digital",
     locale: "en_IN",
-    url: "https://ahmdluthu.com",
-    siteName: "Ahmad Luthu Digital",
+    type: "website",
+    images: [
+      {
+        url: '/refined_hero.png', // Uses existing high-quality hero asset
+        width: 1200,
+        height: 630,
+        alt: 'Ahmed Luthu Kannur - Digital Marketing Expert',
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Ahmed Luthu Kannur | AI-First Digital Marketing Expert",
+    description: "Expert AI-powered digital marketing services for businesses in Kerala.",
+    creator: "@ahmdluthu", // Replace with actual handle if available
+    images: ['/refined_hero.png'], // Uses existing asset
   },
 };
 
@@ -45,6 +87,7 @@ export default function RootLayout({
         <div id="top-progress-bar" />
         <Preloader />
         <ClientEffects />
+        <SchemaRegistry />
         {children}
       </body>
     </html>

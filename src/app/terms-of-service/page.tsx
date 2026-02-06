@@ -1,13 +1,23 @@
 import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Terms of Service | Ahmed Luthu Kannur',
+    description: 'Terms of Service for Ahmed Luthu Kannur - Digital Marketing Expert. Read our terms regarding website use and services.',
+    openGraph: {
+        title: 'Terms of Service | Ahmed Luthu Kannur',
+        description: 'Terms of Service for Ahmed Luthu Kannur - Digital Marketing Expert. Read our terms regarding website use and services.',
+    }
+};
 
 export default function TermsOfService() {
     return (
         <main className="min-h-screen bg-white text-gray-800">
             <Navbar />
-            <div className="container mx-auto px-6 py-32 max-w-4xl">
-                <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
+            <div className="container mx-auto px-6 py-24 md:py-32 max-w-4xl">
+                <h1 className="text-3xl md:text-4xl font-bold mb-8">Terms of Service</h1>
                 <p className="mb-4 text-gray-500 text-sm">Last Updated: {new Date().toLocaleDateString()}</p>
 
                 <div className="space-y-6">
@@ -33,7 +43,7 @@ export default function TermsOfService() {
 
                     <section>
                         <h2 className="text-2xl font-bold mb-3">5. Contact Us</h2>
-                        <p>In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at: <a href="mailto:hello@ahmdluthu.com" className="text-primary font-bold hover:underline">hello@ahmdluthu.com</a></p>
+                        <p>In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at: <a href="mailto:ahmdluthu987@gmail.com" className="text-primary font-bold hover:underline">ahmdluthu987@gmail.com</a></p>
                     </section>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowUpRight, Github, Linkedin, MessageCircle } from "lucide-react";
+import { Menu, X, ArrowUpRight, Instagram, Linkedin } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import Logo from "../ui/Logo";
 
@@ -33,12 +33,41 @@ const Navbar = () => {
     }, [isOpen]);
 
     const navLinks = [
-        { name: "Home", href: "/" },
+        { name: "Home", href: "/#hero" },
         { name: "About", href: "/#about" },
         { name: "Services", href: "/#services" },
         { name: "Blog", href: "/blog" },
         { name: "Contact", href: "/#contact" },
     ];
+
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        // Close mobile menu if open
+        setIsOpen(false);
+
+        if (href.startsWith("/#")) {
+            // Check if we're on the homepage
+            if (window.location.pathname === '/') {
+                e.preventDefault();
+                const targetId = href.split("#")[1];
+
+                // Use setTimeout to ensure closing animation/state doesn't interfere with scroll
+                setTimeout(() => {
+                    const elem = document.getElementById(targetId);
+                    if (elem) {
+                        // Offset for fixed header (approx 80px)
+                        const headerOffset = 100;
+                        const elementPosition = elem.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                }, 100);
+            }
+        }
+    };
 
     return (
         <header
@@ -65,13 +94,7 @@ const Navbar = () => {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                onClick={(e) => {
-                                    if (link.href.startsWith("/#") && window.location.pathname === '/') {
-                                        e.preventDefault();
-                                        const id = link.href.split("#")[1];
-                                        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-                                    }
-                                }}
+                                onClick={(e) => handleNavClick(e, link.href)}
                                 className="text-primary/60 hover:text-primary font-bold text-[11px] uppercase tracking-[0.2em] transition-all hover:-translate-y-0.5"
                             >
                                 {link.name}
@@ -99,10 +122,11 @@ const Navbar = () => {
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="md:hidden relative z-[101] w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-md rounded-xl text-primary border border-primary/5 shadow-sm active:scale-95 transition-transform"
+                    className="md:hidden relative z-[101] w-12 h-12 flex items-center justify-center bg-white/90 backdrop-blur-md rounded-xl text-primary border border-primary/5 shadow-sm active:scale-95 transition-transform"
                     onClick={() => setIsOpen(!isOpen)}
+                    aria-label="Toggle menu"
                 >
-                    {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                    {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
             </div>
 
@@ -113,7 +137,7 @@ const Navbar = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] md:hidden bg-white/95 backdrop-blur-3xl overflow-y-auto custom-scrollbar"
+                        className="fixed inset-0 z-[100] md:hidden bg-white/95 backdrop-blur-3xl overflow-y-auto custom-scrollbar touch-none"
                     >
                         {/* Decorative Background for Mobile Menu */}
                         <div className="fixed inset-0 pointer-events-none opacity-[0.03]">
@@ -141,13 +165,13 @@ const Navbar = () => {
                                     >
                                         <Link
                                             href={link.href}
-                                            className="text-3xl min-[375px]:text-4xl font-black text-primary/30 hover:text-primary transition-all flex items-center gap-4 group"
-                                            onClick={() => setIsOpen(false)}
+                                            className="text-3xl min-[375px]:text-4xl font-black text-primary transition-all flex items-center gap-4 group touch-manipulation whitespace-nowrap select-none"
+                                            style={{ WebkitTapHighlightColor: 'transparent' }}
+                                            onClick={(e) => handleNavClick(e, link.href)}
                                         >
-                                            <span className="group-hover:text-accent transition-colors">0{i + 1}</span>
+                                            <span className="transition-colors">0{i + 1}</span>
                                             <span className="relative">
                                                 {link.name}
-                                                <motion.div className="absolute -bottom-1 left-0 w-0 h-1 bg-accent/30 rounded-full group-hover:w-full transition-all duration-300" />
                                             </span>
                                         </Link>
                                     </motion.div>
@@ -167,7 +191,8 @@ const Navbar = () => {
                                         href="mailto:hello@ahmdluthu.com"
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="text-lg font-bold text-primary hover:text-accent transition-colors block"
+                                        className="text-lg font-bold text-primary block touch-manipulation select-none"
+                                        style={{ WebkitTapHighlightColor: 'transparent' }}
                                     >
                                         hello@ahmdluthu.com
                                     </motion.a>
@@ -193,10 +218,19 @@ const Navbar = () => {
                                     </Link>
                                 </motion.div>
 
-                                <div className="flex items-center gap-8 justify-center opacity-30">
-                                    <Linkedin className="w-5 h-5 hover:text-accent transition-colors cursor-pointer" />
-                                    <Github className="w-5 h-5 hover:text-accent transition-colors cursor-pointer" />
-                                    <MessageCircle className="w-5 h-5 hover:text-accent transition-colors cursor-pointer" />
+                                <div className="flex items-center gap-8 justify-center opacity-80">
+                                    <a href="https://www.linkedin.com/in/muhammed-luthufulla-c-b6aa43362/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-3 bg-primary/5 rounded-xl hover:bg-primary/10 transition-colors cursor-pointer touch-manipulation text-primary">
+                                        <Linkedin className="w-6 h-6" />
+                                    </a>
+                                    <a href="https://instagram.com/ahmdluthu" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-3 bg-primary/5 rounded-xl hover:bg-primary/10 transition-colors cursor-pointer touch-manipulation text-primary">
+                                        <Instagram className="w-6 h-6" />
+                                    </a>
+                                    <a href="https://wa.me/918129650313" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="p-3 bg-primary/5 rounded-xl hover:bg-primary/10 transition-colors cursor-pointer touch-manipulation text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                                            <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                                            <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
                         </div>

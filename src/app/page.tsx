@@ -8,10 +8,11 @@ const Services = dynamic(() => import("@/components/sections/Services"));
 const WhyChooseMe = dynamic(() => import("@/components/sections/WhyChooseMe"));
 const Certifications = dynamic(() => import("@/components/sections/Certifications"));
 const Testimonials = dynamic(() => import("@/components/sections/Testimonials"));
+const HomeBlogSection = dynamic(() => import("@/components/sections/HomeBlogSection"));
 const FAQSection = dynamic(() => import("@/components/sections/FAQSection"));
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
-const ChatbotWrapper = dynamic(() => import("@/components/chat/ChatbotWrapper").then(mod => ({ default: mod.ChatbotWrapper })));
+const LazyChatbot = dynamic(() => import("@/components/chat/LazyChatbot"));
 
 
 import HashScroller from "@/components/utils/HashScroller";
@@ -27,10 +28,11 @@ export default function Home() {
       <WhyChooseMe />
       <Certifications />
       <Testimonials />
+      <HomeBlogSection />
       <FAQSection />
       <Contact />
       <Footer />
-      <ChatbotWrapper />
+      <LazyChatbot />
     </main>
   );
 }

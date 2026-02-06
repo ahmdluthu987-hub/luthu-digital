@@ -21,7 +21,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", size = "md", inverse = fals
             whileHover={{ scale: 1.02 }}
             className={`font-black tracking-tighter select-none cursor-pointer flex items-center leading-none ${sizeClasses[size]} ${className}`}
         >
-            <span className={`${inverse ? "text-white" : "text-primary"} tracking-[-0.04em]`}>AHMD</span>
+            <span className={`${inverse ? "text-white" : "text-primary"} tracking-[-0.04em]`}>AHMED</span>
             <span className="text-accent tracking-[-0.04em] italic">LUTHU</span>
             <span className="w-1.5 h-1.5 rounded-full bg-accent ml-1 mb-1 animate-pulse" />
         </motion.div>

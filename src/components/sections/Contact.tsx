@@ -71,16 +71,12 @@ export default function Contact() {
         } catch (error: unknown) {
             console.error("Error submitting form:", error);
             setStatus("error");
-            if (error instanceof Error) {
-                setErrorMessage(error.message || "Something went wrong. Please try again.");
-            } else {
-                setErrorMessage("Something went wrong. Please try again.");
-            }
+            setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
         }
     };
 
     return (
-        <section id="contact" className="relative py-24 overflow-hidden bg-primary">
+        <section id="contact" className="relative py-16 md:py-24 overflow-hidden bg-primary">
             {/* Background Visuals */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
                 <div className="absolute -top-24 -left-24 w-96 h-96 bg-accent opacity-10 rounded-full blur-[100px] animate-pulse" />
@@ -111,12 +107,12 @@ export default function Contact() {
                                 Get In Touch
                             </motion.div>
 
-                            <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">
-                                Let’s Talk About <span className="text-accent">Your Growth</span>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+                                Let’s Talk About <span className="text-accent">Your Business Growth</span> with the Best Freelance Digital Marketer in Kannur
                             </h2>
 
                             <p className="text-lg text-white/70 leading-relaxed max-w-xl">
-                                Have a question or project in mind? Send us a message and we’ll respond shortly.
+                                Have a question or project in mind? Get in touch with the best freelance digital marketer in Kannur for AI-first SEO, performance marketing, and growth-focused digital strategies. I respond within 24 hours.
                             </p>
                         </div>
 
@@ -137,21 +133,12 @@ export default function Contact() {
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-xs uppercase font-black tracking-widest text-white/40">Service Area</span>
-                                    <span className="font-bold">Kerala & Remote</span>
+                                    <span className="font-bold">Kannur, Kerala & Remote Businesses</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="pt-8 flex flex-col sm:flex-row gap-4">
-                            <motion.button
-                                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255, 107, 53, 0.4)" }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-8 py-4 bg-accent text-white font-black text-lg rounded-xl flex items-center gap-3 justify-center shadow-2xl"
-                            >
-                                Get Free Marketing Audit
-                                <ArrowRight className="w-5 h-5" />
-                            </motion.button>
-                        </div>
+
                     </motion.div>
 
                     {/* Right Side: Contact Form */}
@@ -161,7 +148,7 @@ export default function Contact() {
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="bg-white rounded-[2.5rem] p-8 lg:p-12 shadow-2xl relative z-10 box-border">
+                        <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 lg:p-12 shadow-2xl relative z-10 box-border">
                             <AnimatePresence mode="wait">
                                 {status === "success" ? (
                                     <motion.div
@@ -214,7 +201,7 @@ export default function Contact() {
                                                 type="text"
                                                 required
                                                 placeholder="Enter your full name"
-                                                className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium placeholder:text-gray-300"
+                                                className="w-full px-5 py-3 md:px-6 md:py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium placeholder:text-gray-300 text-base"
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 disabled={status === "loading"}
@@ -229,7 +216,7 @@ export default function Contact() {
                                                 type="email"
                                                 required
                                                 placeholder="Enter your email address"
-                                                className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium placeholder:text-gray-300"
+                                                className="w-full px-5 py-3 md:px-6 md:py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium placeholder:text-gray-300 text-base"
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 disabled={status === "loading"}
@@ -244,7 +231,7 @@ export default function Contact() {
                                                 rows={4}
                                                 required
                                                 placeholder="How can we help you?"
-                                                className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium resize-none placeholder:text-gray-300"
+                                                className="w-full px-5 py-3 md:px-6 md:py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium resize-none placeholder:text-gray-300 text-base"
                                                 value={formData.message}
                                                 onChange={handleChange}
                                                 disabled={status === "loading"}
@@ -270,6 +257,9 @@ export default function Contact() {
                                                 </>
                                             )}
                                         </motion.button>
+                                        <p className="text-center text-xs font-bold uppercase tracking-widest text-[#B4B4B4]">
+                                            Response time: &lt; 24 Hours
+                                        </p>
                                     </motion.form>
                                 )}
                             </AnimatePresence>
@@ -281,16 +271,10 @@ export default function Contact() {
                 </div>
 
                 {/* Footer SEO & Keywords */}
-                <div className="mt-24 pt-12 border-t border-white/10 text-center space-y-6">
-                    <p className="text-sm text-white/40 font-medium">
-                        AI-first digital marketing services for businesses in <span className="text-white/60">Kannur & Kerala</span> — SEO, SMM, SEM, and performance marketing.
+                <div className="mt-16 md:mt-24 pt-8 md:pt-12 border-t border-white/10 text-center space-y-6">
+                    <p className="text-xs sm:text-sm text-white/40 font-medium max-w-3xl mx-auto leading-relaxed">
+                        Providing AI-first digital marketing services in Kannur and Kerala, including SEO, performance marketing, and conversion optimization.
                     </p>
-                    <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 opacity-20 text-[10px] font-black uppercase tracking-[0.4em] text-white">
-                        <span>#AIFirstDigitalMarketingExpertKannur</span>
-                        <span>#DigitalMarketingConsultantKannur</span>
-                        <span>#SEOSMMSEMKerala</span>
-                        <span>#KannurDigitalMarketingServices</span>
-                    </div>
                 </div>
             </div>
         </section>
