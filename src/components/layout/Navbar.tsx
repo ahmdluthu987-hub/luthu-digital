@@ -54,23 +54,21 @@ const Navbar = () => {
         setIsOpen(false);
 
         if (href.startsWith("/#")) {
+            const targetId = href.split("#")[1];
+
             // Check if we're on the homepage
             if (window.location.pathname === '/') {
                 e.preventDefault();
-                const targetId = href.split("#")[1];
+
+                // Update hash without jumping immediately (pushState)
+                window.history.pushState(null, "", href);
 
                 // Allow menu exit animation to start before scrolling
                 setTimeout(() => {
                     const elem = document.getElementById(targetId);
                     if (elem) {
-                        const headerOffset = 100;
-                        const elementPosition = elem.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                        });
+                        // Use scrollIntoView which respects scroll-padding-top in CSS
+                        elem.scrollIntoView({ behavior: "smooth" });
                     }
                 }, 300); // Matches animation duration
             }

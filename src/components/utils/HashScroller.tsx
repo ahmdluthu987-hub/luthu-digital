@@ -14,36 +14,36 @@ export default function HashScroller() {
         const handleHashScroll = () => {
             const hash = window.location.hash;
             if (hash) {
-                // Remove the '#' to get the ID
                 const id = hash.substring(1);
-                const element = document.getElementById(id);
 
-                if (element) {
-                    // Small timeout to allow layout to settle
-                    setTimeout(() => {
-                        element.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }, 100);
-                } else {
-                    // If element not found immediately, retry a few times (for dynamic content)
+                const scrollToElement = (targetId: string) => {
+                    const element = document.getElementById(targetId);
+                    if (element) {
+                        // scroll-padding-top in globals.css (100px) will be respected
+                        element.scrollIntoView({ behavior: "smooth" });
+                        return true;
+                    }
+                    return false;
+                };
+
+                // Try immediately
+                if (!scrollToElement(id)) {
+                    // Retry logic for dynamic/suspended content
                     let retries = 0;
-                    const maxRetries = 20; // Try for 2 seconds (20 * 100ms)
+                    const maxRetries = 20;
                     const interval = setInterval(() => {
-                        const el = document.getElementById(id);
-                        if (el) {
-                            el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        if (scrollToElement(id) || retries >= maxRetries) {
                             clearInterval(interval);
                         }
                         retries++;
-                        if (retries >= maxRetries) clearInterval(interval);
                     }, 100);
                 }
             }
         };
 
-        // Run on mount
+        // Run on mount and path changes
         handleHashScroll();
 
-        // Also listen for hash changes (though usually handled by browser, this reinforces it)
         window.addEventListener("hashchange", handleHashScroll);
         return () => window.removeEventListener("hashchange", handleHashScroll);
 
