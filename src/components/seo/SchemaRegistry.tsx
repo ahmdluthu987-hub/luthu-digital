@@ -9,8 +9,8 @@ export default function SchemaRegistry() {
         "jobTitle": "Freelance Digital Marketer",
         "image": "https://ahmdluthukannur.in/og-image.jpg",
         "sameAs": [
-            "https://www.instagram.com/_.ahmd_luthu._?utm_source=qr",
-            "https://x.com/ahmd_luthu",
+            "https://www.instagram.com/_.ahmd_luthu._",
+            "https://x.com/ahmd_luthu?s=20",
             "https://www.facebook.com/share/1KCjN6BrGu/"
         ],
         "worksFor": {
@@ -54,8 +54,8 @@ export default function SchemaRegistry() {
             "closes": "18:00"
         },
         "sameAs": [
-            "https://www.instagram.com/_.ahmd_luthu._?utm_source=qr",
-            "https://x.com/ahmd_luthu",
+            "https://www.instagram.com/_.ahmd_luthu._",
+            "https://x.com/ahmd_luthu?s=20",
             "https://www.facebook.com/share/1KCjN6BrGu/"
         ]
     };

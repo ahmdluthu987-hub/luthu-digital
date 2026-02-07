@@ -12,17 +12,14 @@ const Preloader = () => {
         const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
         if (isBot) {
             setTimeout(() => setIsLoading(false), 0);
+            return;
         }
-    }, []);
-
-    useEffect(() => {
-        if (!isLoading) return;
 
         // Prevent scrolling while loading
         document.body.style.overflow = "hidden";
 
         const startTime = Date.now();
-        const duration = 500; // Total duration in ms
+        const duration = 400; // Reduced duration
 
         const interval = setInterval(() => {
             const elapsed = Date.now() - startTime;
@@ -35,7 +32,7 @@ const Preloader = () => {
                 setTimeout(() => {
                     setIsLoading(false);
                     document.body.style.overflow = "auto";
-                }, 150);
+                }, 100);
             }
         }, 16); // ~60fps
 
@@ -43,7 +40,7 @@ const Preloader = () => {
             clearInterval(interval);
             document.body.style.overflow = "auto";
         };
-    }, [isLoading]);
+    }, []);
 
     return (
         <AnimatePresence mode="wait">
@@ -56,8 +53,9 @@ const Preloader = () => {
                     aria-label="Loading page content"
                     initial={{ opacity: 1 }}
                     exit={{
-                        y: "-100%",
-                        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+                        opacity: 0,
+                        pointerEvents: "none",
+                        transition: { duration: 0.5 }
                     }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-primary"
                 >
@@ -84,14 +82,9 @@ const Preloader = () => {
                         </motion.div>
 
                         {/* Tagline */}
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.6 }}
-                            transition={{ delay: 0.2 }}
-                            className="text-white/60 text-[10px] md:text-xs uppercase tracking-[0.5em] font-bold mb-12"
-                        >
+                        <p className="text-white/60 text-[10px] md:text-xs uppercase tracking-[0.5em] font-bold mb-12">
                             AI-Powered Marketing Excellence
-                        </motion.p>
+                        </p>
 
                         {/* Progress Bar Container */}
                         <div className="w-48 md:w-64 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
@@ -102,11 +95,9 @@ const Preloader = () => {
                         </div>
 
                         {/* Percentage */}
-                        <motion.span
-                            className="mt-4 text-white/40 font-mono text-[10px] tracking-widest uppercase font-bold"
-                        >
+                        <span className="mt-4 text-white/40 font-mono text-[10px] tracking-widest uppercase font-bold">
                             {Math.round(progress)}%
-                        </motion.span>
+                        </span>
                     </div>
 
                     {/* Decorative Glows */}

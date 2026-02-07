@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
+import { useSpring, useMotionValue, AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
 
 /**
  * ✨ Premium High-Performance Mouse Interaction System
@@ -14,6 +14,7 @@ import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motio
  * - Uses Framer Motion's hardware-accelerated values (transform only).
  * - No layout thrashing.
  * - Strictly disabled on mobile/touch (<1024px).
+ * - Uses LazyMotion for bundle size optimization.
  */
 
 export default function MouseEffect() {
@@ -123,97 +124,99 @@ export default function MouseEffect() {
     if (!isActive) return null;
 
     return (
-        <div className="fixed inset-0 pointer-events-none z-[99999] overflow-hidden" aria-hidden="true">
+        <LazyMotion features={domAnimation}>
+            <div className="fixed inset-0 pointer-events-none z-[99999] overflow-hidden" aria-hidden="true">
 
-            {/* 🌊 Background Ripple Effect */}
-            <motion.div
-                className="absolute top-0 left-0 rounded-full opacity-60"
-                style={{
-                    x: rippleX,
-                    y: rippleY,
-                    translateX: "-50%",
-                    translateY: "-50%",
-                    width: 600,
-                    height: 600,
-                    // Radial gradient: Center distinct, edge transparent
-                    background: "radial-gradient(circle, rgba(0,77,64,0.08) 0%, rgba(0,0,0,0) 60%)"
-                }}
-            />
+                {/* 🌊 Background Ripple Effect */}
+                <m.div
+                    className="absolute top-0 left-0 rounded-full opacity-60"
+                    style={{
+                        x: rippleX,
+                        y: rippleY,
+                        translateX: "-50%",
+                        translateY: "-50%",
+                        width: 600,
+                        height: 600,
+                        // Radial gradient: Center distinct, edge transparent
+                        background: "radial-gradient(circle, rgba(0,77,64,0.08) 0%, rgba(0,0,0,0) 60%)"
+                    }}
+                />
 
-            {/* ⭕ Outer Ring */}
-            <motion.div
-                className="absolute top-0 left-0 rounded-full border border-primary box-border"
-                style={{
-                    x: ringX,
-                    y: ringY,
-                    translateX: "-50%",
-                    translateY: "-50%",
-                }}
-                animate={{
-                    // Dimensions
-                    width: hoverState === 'link' ? 48 : 32, // 1.6x of 32 ≈ 51, visually adjusted to 48
-                    height: hoverState === 'link' ? 48 : 32,
+                {/* ⭕ Outer Ring */}
+                <m.div
+                    className="absolute top-0 left-0 rounded-full border border-primary box-border"
+                    style={{
+                        x: ringX,
+                        y: ringY,
+                        translateX: "-50%",
+                        translateY: "-50%",
+                        width: 32,
+                        height: 32,
+                    }}
+                    animate={{
+                        // Scale based on state (32px base -> 48px = 1.5 scale)
+                        scale: hoverState === 'link' ? 1.5 : 1,
 
-                    // Colors & Borders
-                    borderColor: hoverState === 'link' ? '#FF6B35' : '#004D40',
-                    borderWidth: 1.5,
-                    opacity: hoverState === 'text' ? 0.25 : 1, // Soften on text
+                        // Colors & Borders
+                        borderColor: hoverState === 'link' ? '#FF6B35' : '#004D40',
+                        borderWidth: 1.5, // Border width will scale with element
+                        opacity: hoverState === 'text' ? 0.25 : 1, // Soften on text
 
-                    // Interaction
-                    scale: isClicked ? 0.85 : 1,
-                    backgroundColor: hoverState === 'link' ? "rgba(255, 107, 53, 0.05)" : "rgba(255, 107, 53, 0)",
-                    boxShadow: hoverState === 'link' ? "0 0 12px rgba(255,107,53,0.35)" : "none",
-                }}
-                transition={{
-                    type: "tween",
-                    ease: "easeOut",
-                    duration: 0.2 // Smooth easing limit
-                }}
-            />
+                        // Interaction
+                        backgroundColor: hoverState === 'link' ? "rgba(255, 107, 53, 0.05)" : "rgba(255, 107, 53, 0)",
+                        boxShadow: hoverState === 'link' ? "0 0 12px rgba(255,107,53,0.35)" : "none",
+                    }}
+                    transition={{
+                        type: "tween",
+                        ease: "easeOut",
+                        duration: 0.2 // Smooth easing limit
+                    }}
+                />
 
-            {/* 🧿 Inner Dot */}
-            <motion.div
-                className="absolute top-0 left-0 rounded-full"
-                style={{
-                    x: mouseX,
-                    y: mouseY,
-                    translateX: "-50%",
-                    translateY: "-50%",
-                }}
-                animate={{
-                    // Morphing
-                    width: hoverState === 'link' ? 12 : 6, // Pill shape width
-                    height: hoverState === 'link' ? 12 : 6, // Pill shape height
-                    backgroundColor: hoverState === 'link' ? '#004D40' : '#FF6B35', // Swap colors on hover
-                    scale: isClicked ? 0.5 : 1,
-                }}
-                transition={{
-                    type: "tween",
-                    ease: "linear",
-                    duration: 0.1 // Near instant
-                }}
-            />
+                {/* 🧿 Inner Dot */}
+                <m.div
+                    className="absolute top-0 left-0 rounded-full"
+                    style={{
+                        x: mouseX,
+                        y: mouseY,
+                        translateX: "-50%",
+                        translateY: "-50%",
+                        width: 6,
+                        height: 6,
+                    }}
+                    animate={{
+                        // Morphing (6px base -> 12px = 2 scale)
+                        scale: hoverState === 'link' ? 2 : (isClicked ? 0.5 : 1),
+                        backgroundColor: hoverState === 'link' ? '#004D40' : '#FF6B35', // Swap colors on hover
+                    }}
+                    transition={{
+                        type: "tween",
+                        ease: "linear",
+                        duration: 0.1 // Near instant
+                    }}
+                />
 
-            {/* 💥 Click Accent Ripple (Ephemeral) */}
-            <AnimatePresence>
-                {isClicked && (
-                    <motion.div
-                        initial={{ opacity: 0.4, scale: 0.5 }}
-                        animate={{ opacity: 0, scale: 2 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute top-0 left-0 rounded-full border border-accent"
-                        style={{
-                            x: mouseX,
-                            y: mouseY,
-                            translateX: "-50%",
-                            translateY: "-50%",
-                            width: 32,
-                            height: 32,
-                        }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                    />
-                )}
-            </AnimatePresence>
-        </div>
+                {/* 💥 Click Accent Ripple (Ephemeral) */}
+                <AnimatePresence>
+                    {isClicked && (
+                        <m.div
+                            initial={{ opacity: 0.4, scale: 0.5 }}
+                            animate={{ opacity: 0, scale: 2 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute top-0 left-0 rounded-full border border-accent"
+                            style={{
+                                x: mouseX,
+                                y: mouseY,
+                                translateX: "-50%",
+                                translateY: "-50%",
+                                width: 32,
+                                height: 32,
+                            }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                        />
+                    )}
+                </AnimatePresence>
+            </div>
+        </LazyMotion>
     );
 }

@@ -10,6 +10,7 @@ const inter = Inter({
   subsets: ["latin"],
   display: 'swap',
   variable: '--font-inter',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: '/refined_hero.png', // Uses existing high-quality hero asset
+        url: '/refined_hero.webp', // Uses existing high-quality hero asset
         width: 1200,
         height: 630,
         alt: 'Ahmed Luthu Kannur - Digital Marketing Expert',
@@ -79,7 +80,7 @@ export const metadata: Metadata = {
     title: "Ahmed Luthu Kannur | AI-First Digital Marketing Expert",
     description: "Expert AI-powered digital marketing services for businesses in Kerala.",
     creator: "@ahmdluthu", // Replace with actual handle if available
-    images: ['/refined_hero.png'], // Uses existing asset
+    images: ['/refined_hero.webp'], // Uses existing asset
   },
 };
 

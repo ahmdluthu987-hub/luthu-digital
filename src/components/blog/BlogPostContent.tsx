@@ -338,9 +338,9 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
 
                                             <div className="flex items-center gap-4">
                                                 {[
-                                                    { Icon: Linkedin, href: "https://linkedin.com/in/ahmdluthu", label: "LinkedIn" },
-                                                    { Icon: Instagram, href: "https://instagram.com/ahmdluthu", label: "Instagram" },
-                                                    { Icon: Twitter, href: "https://twitter.com/ahmdluthu", label: "Twitter" }
+                                                    { Icon: Linkedin, href: "https://www.linkedin.com/in/muhammed-luthufulla-c-b6aa43362/", label: "LinkedIn" },
+                                                    { Icon: Instagram, href: "https://www.instagram.com/_.ahmd_luthu._", label: "Instagram" },
+                                                    { Icon: Twitter, href: "https://x.com/ahmd_luthu?s=20", label: "Twitter" }
                                                 ].map((social, idx) => (
                                                     <a
                                                         key={idx}

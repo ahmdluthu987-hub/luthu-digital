@@ -8,11 +8,10 @@ import {
     Twitter,
     Mail,
     MapPin,
-    Heart,
-    ChevronRight,
-    Loader2,
     CheckCircle2,
-    Phone
+    Phone,
+    ChevronRight,
+    Loader2
 } from "lucide-react";
 import Logo from "../ui/Logo";
 
@@ -82,13 +81,13 @@ const Footer = () => {
                             Ahmed Luthu Kannur is an AI-first digital marketing expert and the best freelance digital marketer in Kannur, helping local and Kerala-based businesses grow through data-driven strategies.
                         </p>
                         <div className="flex items-center gap-4 pt-2">
-                            <a href="https://instagram.com/ahmdluthu" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent text-white/70 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Instagram">
+                            <a href="https://www.instagram.com/_.ahmd_luthu._" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent text-white/70 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Instagram">
                                 <Instagram className="w-5 h-5" />
                             </a>
                             <a href="https://www.linkedin.com/in/muhammed-luthufulla-c-b6aa43362/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent text-white/70 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent" aria-label="LinkedIn">
                                 <Linkedin className="w-5 h-5" />
                             </a>
-                            <a href="https://twitter.com/ahmdluthu" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent text-white/70 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Twitter">
+                            <a href="https://x.com/ahmd_luthu?s=20" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent text-white/70 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent" aria-label="Twitter">
                                 <Twitter className="w-5 h-5" />
                             </a>
                             <a href="https://wa.me/918129650313" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent text-white/70 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent" aria-label="WhatsApp">

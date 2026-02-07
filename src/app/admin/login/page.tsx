@@ -4,6 +4,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import { Lock, Mail, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 
 export default function AdminLogin() {
     const [email, setEmail] = useState("");
@@ -50,8 +51,8 @@ export default function AdminLogin() {
 
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <Lock className="w-7 h-7 text-primary" />
+                    <div className="flex justify-center mb-6 hover:scale-105 transition-transform duration-300">
+                        <Logo size="lg" />
                     </div>
                     <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2">Admin Login</h1>
                     <p className="text-foreground/60 text-sm">Secure access to control center</p>

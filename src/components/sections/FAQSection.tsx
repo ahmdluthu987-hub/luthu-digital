@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Sparkles, MessageCircle, Plus, Minus } from "lucide-react";
+import { Sparkles, MessageCircle, Plus, Minus } from "lucide-react";
 
 /**
  * FAQSection - A modern, SEO-friendly FAQ component with JSON-LD schema support.
