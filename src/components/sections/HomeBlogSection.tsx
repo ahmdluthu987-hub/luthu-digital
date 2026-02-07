@@ -1,11 +1,9 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowUpRight, Calendar, Clock, Sparkles } from "lucide-react";
 import { blogPosts } from "@/data/blog-posts";
+import { BlogHeaderMotion, BlogLinkMotion, BlogCardMotion } from "./blog/BlogMotionWrappers";
 
 const HomeBlogSection = () => {
     // Get the first 3 posts
@@ -16,12 +14,7 @@ const HomeBlogSection = () => {
             <div className="container mx-auto px-6 lg:px-12 relative z-10">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="space-y-4"
-                    >
+                    <BlogHeaderMotion>
                         <div className="flex items-center gap-2 text-accent text-xs font-bold uppercase tracking-widest">
                             <Sparkles className="w-4 h-4" />
                             <span>Latest Thinking</span>
@@ -32,13 +25,9 @@ const HomeBlogSection = () => {
                                 & AI Growth.
                             </span>
                         </h2>
-                    </motion.div>
+                    </BlogHeaderMotion>
 
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                    >
+                    <BlogLinkMotion>
                         <Link
                             href="/blog"
                             className="group inline-flex items-center gap-2 text-primary font-bold hover:text-accent transition-colors"
@@ -46,19 +35,15 @@ const HomeBlogSection = () => {
                             View All Articles
                             <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                         </Link>
-                    </motion.div>
+                    </BlogLinkMotion>
                 </div>
 
                 {/* Posts Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {recentPosts.map((post, index) => (
-                        <motion.article
+                        <BlogCardMotion
                             key={post.slug}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="group flex flex-col h-full bg-white rounded-[2rem] overflow-hidden border border-primary/5 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
+                            delay={index * 0.1}
                         >
                             <Link href={`/blog/${post.slug}`} className="block relative aspect-[16/9] overflow-hidden">
                                 <Image
@@ -105,7 +90,7 @@ const HomeBlogSection = () => {
                                     </Link>
                                 </div>
                             </div>
-                        </motion.article>
+                        </BlogCardMotion>
                     ))}
                 </div>
             </div>

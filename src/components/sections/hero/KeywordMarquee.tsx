@@ -1,7 +1,5 @@
-"use client";
-
 import React from "react";
-import { m } from "framer-motion";
+import LazyMotionWrapper, { m } from "@/components/utils/LazyMotionWrapper";
 
 /**
  * Marquee component for the hero keyword strip.
@@ -36,20 +34,22 @@ const KeywordMarquee = () => {
     ];
 
     return (
-        <div className="w-full bg-white/40 backdrop-blur-md py-4 md:py-6 overflow-hidden flex select-none border-t border-primary/5">
-            <m.div
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{
-                    duration: 35,
-                    repeat: Infinity,
-                    ease: "linear",
-                }}
-                className="flex shrink-0 items-center"
-            >
-                <List keywords={keywords} />
-                <List keywords={keywords} />
-            </m.div>
-        </div>
+        <LazyMotionWrapper>
+            <div className="w-full bg-white/40 backdrop-blur-md py-4 md:py-6 overflow-hidden flex select-none border-t border-primary/5">
+                <m.div
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{
+                        duration: 35,
+                        repeat: Infinity,
+                        ease: "linear",
+                    }}
+                    className="flex shrink-0 items-center"
+                >
+                    <List keywords={keywords} />
+                    <List keywords={keywords} />
+                </m.div>
+            </div>
+        </LazyMotionWrapper>
     );
 };
 

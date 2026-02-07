@@ -1,29 +1,44 @@
-"use client";
-
-import React from "react";
-import dynamic from "next/dynamic";
+import React, { Suspense } from "react";
+import Services from "@/components/sections/Services";
+import WhyChooseMe from "@/components/sections/WhyChooseMe";
+import Certifications from "@/components/sections/Certifications";
+import Testimonials from "@/components/sections/Testimonials";
+import HomeBlogSection from "@/components/sections/HomeBlogSection";
+import FAQSection from "@/components/sections/FAQSection";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
+import LazyChatbot from "@/components/chat/LazyChatbot";
 
-// Lazy load below-the-fold components
-const Services = dynamic(() => import("@/components/sections/Services"), { ssr: false });
-const WhyChooseMe = dynamic(() => import("@/components/sections/WhyChooseMe"), { ssr: false });
-const Certifications = dynamic(() => import("@/components/sections/Certifications"), { ssr: false });
-const Testimonials = dynamic(() => import("@/components/sections/Testimonials"), { ssr: false });
-const HomeBlogSection = dynamic(() => import("@/components/sections/HomeBlogSection"), { ssr: false });
-const FAQSection = dynamic(() => import("@/components/sections/FAQSection"), { ssr: false });
-const LazyChatbot = dynamic(() => import("@/components/chat/LazyChatbot"), { ssr: false });
+const SectionLoader = () => (
+    <div className="w-full h-48 flex items-center justify-center bg-[#FDFCF8]/50 animate-pulse rounded-3xl mb-8">
+        <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin" />
+    </div>
+);
 
 const HomeLazySections = () => {
     return (
         <>
-            <Services />
-            <WhyChooseMe />
-            <Certifications />
-            <Testimonials />
-            <HomeBlogSection />
-            <FAQSection />
-            <Contact />
+            <Suspense fallback={<SectionLoader />}>
+                <Services />
+            </Suspense>
+            <Suspense fallback={<SectionLoader />}>
+                <WhyChooseMe />
+            </Suspense>
+            <Suspense fallback={<SectionLoader />}>
+                <Certifications />
+            </Suspense>
+            <Suspense fallback={<SectionLoader />}>
+                <Testimonials />
+            </Suspense>
+            <Suspense fallback={<SectionLoader />}>
+                <HomeBlogSection />
+            </Suspense>
+            <Suspense fallback={<SectionLoader />}>
+                <FAQSection />
+            </Suspense>
+            <Suspense fallback={<SectionLoader />}>
+                <Contact />
+            </Suspense>
             <Footer />
             <LazyChatbot />
         </>

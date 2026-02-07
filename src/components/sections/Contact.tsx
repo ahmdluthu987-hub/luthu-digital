@@ -1,79 +1,13 @@
-"use client";
-
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
 import {
-    Send,
     MapPin,
     Globe,
-    CheckCircle2,
-    Sparkles,
-    AlertCircle,
-    Loader2
+    Sparkles
 } from "lucide-react";
+import { ContactInfoMotion, ContactBadgeMotion, ContactFormWrapperMotion } from "./contact/ContactWrappers";
+import { ContactForm } from "./contact/ContactForm";
 
 export default function Contact() {
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-    const [errorMessage, setErrorMessage] = useState("");
-
-    // Form State
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        message: ""
-    });
-
-    // Handle Input Changes
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    // Handle Form Submission
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setStatus("loading");
-        setErrorMessage("");
-
-        try {
-            // Client-side validation (double check)
-            if (!formData.name || !formData.email || !formData.message) {
-                throw new Error("Please fill in all fields.");
-            }
-
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error || "Failed to send message.");
-            }
-
-            // Success
-            setStatus("success");
-            setFormData({ name: "", email: "", message: "" });
-
-            // Reset status after showing success message (optional, but keeps it clean)
-            // User requested "Show confirmation message" - we keep it visible until they dismiss or navigate, 
-            // but the prompt says "Clear form after successful submission". 
-            // We'll keep the success state visible for a bit or let user click to send another.
-
-        } catch (error: unknown) {
-            console.error("Error submitting form:", error);
-            setStatus("error");
-            setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
-        }
-    };
-
     return (
         <section id="contact" className="relative py-16 md:py-24 overflow-hidden bg-primary">
             {/* Background Visuals */}
@@ -89,22 +23,12 @@ export default function Contact() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                     {/* Left Side: Info & Text */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="space-y-8"
-                    >
+                    <ContactInfoMotion>
                         <div className="space-y-6">
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-bold uppercase tracking-widest"
-                            >
+                            <ContactBadgeMotion>
                                 <Sparkles className="w-4 h-4 text-accent" />
                                 Get In Touch
-                            </motion.div>
+                            </ContactBadgeMotion>
 
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
                                 Let’s Talk About <span className="text-accent">Your Business Growth</span> with the Best Freelance Digital Marketer in Kannur
@@ -136,137 +60,15 @@ export default function Contact() {
                                 </div>
                             </div>
                         </div>
-
-
-                    </motion.div>
+                    </ContactInfoMotion>
 
                     {/* Right Side: Contact Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="relative"
-                    >
-                        <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 lg:p-12 shadow-2xl relative z-10 box-border">
-                            <AnimatePresence mode="wait">
-                                {status === "success" ? (
-                                    <motion.div
-                                        key="success"
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        className="flex flex-col items-center justify-center py-12 text-center space-y-4"
-                                    >
-                                        <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                                            <CheckCircle2 className="w-10 h-10" />
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-primary">Message Sent Successfully!</h3>
-                                        <p className="text-foreground/60 max-w-xs text-balance">
-                                            Thank you! We’ll get back to you shortly.
-                                        </p>
-                                        <button
-                                            onClick={() => setStatus("idle")}
-                                            className="mt-8 text-sm font-bold text-accent hover:text-accent/80 transition-colors uppercase tracking-widest"
-                                        >
-                                            Send another message
-                                        </button>
-                                    </motion.div>
-                                ) : (
-                                    <motion.form
-                                        key="form"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        onSubmit={handleSubmit}
-                                        className="space-y-6"
-                                    >
-                                        {/* Error Alert */}
-                                        {status === "error" && (
-                                            <motion.div
-                                                initial={{ opacity: 0, y: -10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                className="p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3 text-red-600"
-                                            >
-                                                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                                                <p className="text-sm font-medium">{errorMessage}</p>
-                                            </motion.div>
-                                        )}
-
-                                        <div className="space-y-2">
-                                            <label htmlFor="name" className="text-xs font-black uppercase tracking-widest text-primary/40 pl-2">Full Name</label>
-                                            <input
-                                                id="name"
-                                                name="name"
-                                                type="text"
-                                                required
-                                                placeholder="Enter your full name"
-                                                className="w-full px-5 py-3 md:px-6 md:py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium placeholder:text-gray-300 text-base"
-                                                value={formData.name}
-                                                onChange={handleChange}
-                                                disabled={status === "loading"}
-                                            />
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <label htmlFor="email" className="text-xs font-black uppercase tracking-widest text-primary/40 pl-2">Email Address</label>
-                                            <input
-                                                id="email"
-                                                name="email"
-                                                type="email"
-                                                required
-                                                placeholder="Enter your email address"
-                                                className="w-full px-5 py-3 md:px-6 md:py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium placeholder:text-gray-300 text-base"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                disabled={status === "loading"}
-                                            />
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <label htmlFor="message" className="text-xs font-black uppercase tracking-widest text-primary/40 pl-2">Message</label>
-                                            <textarea
-                                                id="message"
-                                                name="message"
-                                                rows={4}
-                                                required
-                                                placeholder="How can we help you?"
-                                                className="w-full px-5 py-3 md:px-6 md:py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:bg-white transition-all text-primary font-medium resize-none placeholder:text-gray-300 text-base"
-                                                value={formData.message}
-                                                onChange={handleChange}
-                                                disabled={status === "loading"}
-                                            />
-                                        </div>
-
-                                        <motion.button
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                            disabled={status === "loading"}
-                                            className="w-full py-5 bg-primary text-white font-black text-xl rounded-2xl flex items-center justify-center gap-3 shadow-xl transition-all group disabled:opacity-70 disabled:cursor-not-allowed"
-                                            type="submit"
-                                        >
-                                            {status === "loading" ? (
-                                                <>
-                                                    <Loader2 className="w-5 h-5 animate-spin" />
-                                                    Sending...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    Send Message
-                                                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                                </>
-                                            )}
-                                        </motion.button>
-                                        <p className="text-center text-xs font-bold uppercase tracking-widest text-[#B4B4B4]">
-                                            Response time: &lt; 24 Hours
-                                        </p>
-                                    </motion.form>
-                                )}
-                            </AnimatePresence>
-                        </div>
+                    <ContactFormWrapperMotion>
+                        <ContactForm />
 
                         {/* Form Background Accent */}
                         <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/20 rounded-full blur-3xl -z-10" />
-                    </motion.div>
+                    </ContactFormWrapperMotion>
                 </div>
 
                 {/* Footer SEO & Keywords */}

@@ -1,16 +1,13 @@
-"use client";
-
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, MessageCircle, Plus, Minus } from "lucide-react";
+import React from "react";
+import { Sparkles, MessageCircle } from "lucide-react";
+import { FAQHeaderMotion, FAQFooterMotion } from "./faq/FAQWrappers";
+import { FAQList } from "./faq/FAQList";
 
 /**
  * FAQSection - A modern, SEO-friendly FAQ component with JSON-LD schema support.
  * Design: Minimal, clean accordion list without heavy cards.
  */
 const FAQSection = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(0);
-
     const faqs = [
         {
             question: "What services do you offer as a digital marketing expert in Kannur?",
@@ -56,10 +53,6 @@ const FAQSection = () => {
         })),
     };
 
-    const toggleFAQ = (index: number) => {
-        setActiveIndex(activeIndex === index ? null : index);
-    };
-
     return (
         <section id="faq" className="py-20 md:py-32 bg-[#FDFCF8] relative overflow-hidden">
             {/* Inject JSON-LD Schema for SEO */}
@@ -79,12 +72,7 @@ const FAQSection = () => {
 
                     {/* Left Side: Header Content */}
                     <div className="lg:w-1/3 lg:sticky lg:top-32">
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="space-y-8"
-                        >
+                        <FAQHeaderMotion>
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest">
                                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                                 Knowledge Base
@@ -101,78 +89,31 @@ const FAQSection = () => {
                             </p>
 
                             <div className="pt-4">
-                                <button
-                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                <a
+                                    href="#contact"
                                     className="group flex items-center gap-4 text-primary font-bold uppercase tracking-widest text-xs hover:text-accent transition-colors"
                                 >
                                     <div className="w-12 h-12 rounded-full border border-primary/10 bg-white flex items-center justify-center group-hover:bg-accent group-hover:border-accent group-hover:text-white transition-all duration-300">
                                         <MessageCircle className="w-5 h-5" />
                                     </div>
                                     <span className="group-hover:translate-x-1 transition-transform duration-300">Ask me directly</span>
-                                </button>
+                                </a>
                             </div>
-                        </motion.div>
+                        </FAQHeaderMotion>
                     </div>
 
                     {/* Right Side: FAQ Accordion (Clean List Style) */}
                     <div className="lg:w-2/3 w-full">
-                        <div className="divide-y divide-primary/5 border-t border-b border-primary/5">
-                            {faqs.map((faq, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.05 }}
-                                    className={`group transition-colors duration-300 ${activeIndex === index ? "bg-transparent" : "hover:bg-primary/[0.02]"}`}
-                                >
-                                    <button
-                                        onClick={() => toggleFAQ(index)}
-                                        className="w-full flex items-start justify-between text-left focus:outline-none gap-6 py-8"
-                                    >
-                                        <span className={`text-xl md:text-2xl font-bold transition-colors duration-300 pr-4 leading-tight text-balance ${activeIndex === index ? "text-primary" : "text-primary/70 group-hover:text-primary"
-                                            }`}>
-                                            {faq.question}
-                                        </span>
-                                        <div className={`shrink-0 w-8 h-8 flex items-center justify-center transition-all duration-300 ${activeIndex === index ? "text-accent rotate-180" : "text-primary/30 group-hover:text-primary"
-                                            }`}>
-                                            {activeIndex === index ? <Minus className="w-6 h-6" /> : <Plus className="w-6 h-6" />}
-                                        </div>
-                                    </button>
-
-                                    <AnimatePresence>
-                                        {activeIndex === index && (
-                                            <motion.div
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: "auto", opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                                            >
-                                                <div className="pb-8 pr-12">
-                                                    <p className="text-lg text-primary/60 leading-relaxed text-balance font-medium">
-                                                        {faq.answer}
-                                                    </p>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </motion.div>
-                            ))}
-                        </div>
+                        <FAQList faqs={faqs} />
 
                         {/* Bottom Tags */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            className="pt-12 flex flex-wrap gap-x-8 gap-y-3 opacity-30"
-                        >
+                        <FAQFooterMotion>
                             {["Digital Marketing", "AI Strategy", "Kannur SEO & Growth"].map((tag, i) => (
                                 <span key={i} className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-primary">
                                     {tag}
                                 </span>
                             ))}
-                        </motion.div>
+                        </FAQFooterMotion>
                     </div>
                 </div>
             </div>

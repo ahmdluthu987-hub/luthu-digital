@@ -1,12 +1,10 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import {
     ArrowRight,
     Sparkles
 } from "lucide-react";
 import Link from "next/link";
+import { AboutContentMotion, AboutStatMotion, AboutButtonMotion } from "./about/AboutMotionWrappers";
 
 const AboutSection = () => {
     const stats = [
@@ -45,23 +43,12 @@ const AboutSection = () => {
 
                     {/* Left: Content Side */}
                     <div className="lg:col-span-7 flex flex-col justify-center order-1">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, ease: "easeOut" }}
-                            className="space-y-8 md:space-y-12"
-                        >
+                        <AboutContentMotion>
                             <header className="space-y-6 md:space-y-8">
-                                <motion.span
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.5, delay: 0.2 }}
-                                    className="inline-flex items-center gap-2 px-4 py-2 bg-accent/5 rounded-full text-accent font-bold text-[10px] sm:text-xs uppercase tracking-widest border border-accent/10 backdrop-blur-sm"
-                                >
+                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-accent/5 rounded-full text-accent font-bold text-[10px] sm:text-xs uppercase tracking-widest border border-accent/10 backdrop-blur-sm">
                                     <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
                                     Professional Pedigree
-                                </motion.span>
+                                </span>
                                 <h2
                                     id="about-heading"
                                     className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white leading-[1.1] tracking-tight text-balance"
@@ -70,7 +57,7 @@ const AboutSection = () => {
                                 </h2>
                             </header>
 
-                            <div className="space-y-8 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed font-medium max-w-2xl text-pretty">
+                            <div className="space-y-8 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed font-medium max-w-2xl text-pretty mt-8 md:mt-12">
                                 <p>
                                     <span className="text-white font-bold">Ahmed Luthu Kannur</span> is an <Link href="/blog/inside-mind-ai-first-digital-marketing-expert-kannur" className="text-accent hover:text-white underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all duration-300 cursor-pointer">AI first digital marketing expert in Kannur</Link> focused on building scalable growth systems, not just running ads. He designs data-driven SEO and performance marketing frameworks that deliver consistent, measurable ROI.
                                 </p>
@@ -84,40 +71,26 @@ const AboutSection = () => {
                                 </p>
                             </div>
 
-                            <div className="pt-2 sm:pt-6 flex justify-start">
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="group relative w-full sm:w-auto px-8 py-4 bg-white text-primary rounded-full font-bold text-base sm:text-lg flex items-center justify-center gap-3 overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.4)] shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 cursor-pointer"
-                                    aria-label="View detailed portfolio and contact information"
-                                >
-                                    <span className="relative z-10 transition-colors duration-300 group-hover:text-primary">Let&apos;s Discuss Your Project</span>
-                                    <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1.5 transition-transform duration-300 group-hover:text-primary" aria-hidden="true" />
-                                    <div className="absolute inset-0 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
-                                </motion.button>
+                            <div className="pt-2 sm:pt-6 flex justify-start mt-8">
+                                <Link href="#contact" className="w-full sm:w-auto">
+                                    <AboutButtonMotion>
+                                        <span className="relative z-10 transition-colors duration-300 group-hover:text-primary">Let&apos;s Discuss Your Project</span>
+                                        <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1.5 transition-transform duration-300 group-hover:text-primary" aria-hidden="true" />
+                                        <div className="absolute inset-0 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
+                                    </AboutButtonMotion>
+                                </Link>
                             </div>
-                        </motion.div>
+                        </AboutContentMotion>
                     </div>
 
                     {/* Right: Stats Grid */}
                     <aside className="lg:col-span-5 order-2 w-full pt-4 lg:pt-12" aria-label="Professional statistics and achievements">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-col gap-5 sm:gap-6">
                             {stats.map((stat, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, x: 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1, duration: 0.6 }}
-                                    whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                                    className={`group relative p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/5 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-500 overflow-hidden cursor-pointer ${index === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
-                                    role="article"
-                                    aria-label={stat.ariaLabel}
-                                >
+                                <AboutStatMotion key={index} index={index}>
                                     <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out pointer-events-none" />
 
-                                    <div className="relative z-10">
+                                    <div className="relative z-10" aria-label={stat.ariaLabel}>
                                         <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/50 mb-2 sm:mb-3 tracking-tight group-hover:from-white group-hover:to-accent transition-all duration-500">
                                             {stat.number}
                                         </h3>
@@ -128,7 +101,7 @@ const AboutSection = () => {
 
                                     {/* Subtle border glow on hover */}
                                     <div className="absolute inset-0 border border-accent/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                                </motion.div>
+                                </AboutStatMotion>
                             ))}
                         </div>
                     </aside>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Preloader from "@/components/layout/Preloader";
+
 
 import ClientEffects from "@/components/layout/ClientEffects";
 import SchemaRegistry from "@/components/seo/SchemaRegistry";
@@ -93,7 +93,6 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${inter.className} antialiased selection:bg-accent/30 selection:text-accent`}>
         <div id="top-progress-bar" />
-        <Preloader />
         <ClientEffects />
         <SchemaRegistry />
         {children}
