@@ -46,9 +46,10 @@ const HeroVisuals = () => {
                             fill
                             priority
                             fetchPriority="high"
+                            loading="eager"
                             className="object-contain object-bottom drop-shadow-2xl"
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                            quality={80}
+                            quality={85}
                             placeholder="empty"
                         />
                     </div>

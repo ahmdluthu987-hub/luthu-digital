@@ -11,6 +11,8 @@ import RecentMessages from "@/components/admin/dashboard/RecentMessages";
 import SubscribersPanel from "@/components/admin/dashboard/SubscribersPanel";
 import LeadsTable from "@/components/admin/dashboard/LeadsTable";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
     title: "Executive Dashboard | Admin",
 };

@@ -20,7 +20,12 @@ export async function middleware(req: NextRequest) {
                     setAll(cookiesToSet) {
                         cookiesToSet.forEach(({ name, value }) => req.cookies.set(name, value));
                         cookiesToSet.forEach(({ name, value, options }) =>
-                            res.cookies.set(name, value, options)
+                            res.cookies.set(name, value, {
+                                ...options,
+                                // Enforce secure in production, but allow flexible sameSite
+                                secure: process.env.NODE_ENV === "production",
+                                sameSite: "lax",
+                            })
                         );
                     },
                 },
@@ -28,8 +33,12 @@ export async function middleware(req: NextRequest) {
         );
 
         const { data: { session } } = await supabase.auth.getSession();
+
         if (!session) {
-            return NextResponse.redirect(new URL("/admin/login", req.url));
+            // Use absolute URL for redirect to avoid production routing issues
+            const loginUrl = req.nextUrl.clone();
+            loginUrl.pathname = "/admin/login";
+            return NextResponse.redirect(loginUrl);
         }
     }
 

@@ -55,7 +55,7 @@ const Preloader = () => {
                     exit={{
                         opacity: 0,
                         pointerEvents: "none",
-                        transition: { duration: 0.5 }
+                        transition: { duration: 0.3, ease: "easeIn" }
                     }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-primary"
                 >
