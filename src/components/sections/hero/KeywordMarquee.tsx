@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
-import LazyMotionWrapper, { m } from "@/components/utils/LazyMotionWrapper";
+import { m } from "framer-motion";
+import LazyMotionWrapper from "@/components/utils/LazyMotionWrapper";
 
 /**
  * Marquee component for the hero keyword strip.
